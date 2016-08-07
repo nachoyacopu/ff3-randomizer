@@ -1,0 +1,13 @@
+# ROM
+*.nes
+
+# Bower
+bower_components/
+
+# OS X generated files
+.DS_Store
+.DS_Store?
+._*
+.Trashes
+ehthumbs.db
+Thumbs.db

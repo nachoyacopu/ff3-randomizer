@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Final Fantasy III Randomizer - by NachoYacopu</title>
+    <link rel="stylesheet" href="../../css/bootstrap-yeti.min.css" />
+
+    <link rel="stylesheet" href="../../css/style.css" />
+
+</head>
+
+<body>
+
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Yacopu's Stuff</a>
+            </div>
+        </div>
+    </nav>
+    
+<!--
+Versions
+v0.2 May 16, 2016
+- Shuffled jobs are properly displayed in battle
+- Added balancing of jobs starting stats
+v0.1 Somewhere early May, 2016
+- Initial version
+- Added shuffle jobs, randomize chests and enemies
+-->
+
+    <div class="container">
+        <div class="page-header">
+            <div class="row">
+                <div class="col-lg-8 col-md-7 col-sm-6">
+                    <h1>Final Fantasy III Randomizer</h1>
+                    <p class="lead">by NachoYacopu</p>
+                    <p class="text-info">v0.21 <a href="#panel-updates"><small>(view changelog)</small></a></p>
+                </div>
+                <div class="col-lg-4 col-md-5 col-sm-6">
+                    <div class="logo">
+                        <img src="../../assets/FF3NES-Hein.gif" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="page-header">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label"></label>
+                        <div class="input-group">
+                            <input type="file" id="file-rom" accept=".nes" />
+                            <button id="btn-load-rom" class="btn btn-primary btn-default-file">
+                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Select Final Fantasy III (*.nes) ROM file
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label"></label>
+                        <div class="input-group">
+                            <span class="input-group-addon">Seed</span>
+                            <input type="text" id="txt-seed" placeholder="Optional custom seed" class="form-control">
+                            <span class="input-group-btn">
+                                <button id="btn-randomize" class="btn btn-primary" disabled>Randomize</button>
+                                <button id="btn-send-file" class="btn btn-success" disabled>Download</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="page-header">
+            <div class="row">
+                <form class="form-horizontal">
+                    <fieldset>
+
+                        <div class="col-md-6">
+                            <legend>Randomize Jobs</legend>
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" id="chk-jobs-ok" /> Include Onion Knight</label>
+                                </div>
+                                <div class="checkbox">
+                                    <label data-toggle="tooltip" data-placement="bottom" title="Include the Fighter, Monk, White, Black and Red Wizard.">
+                                        <input type="checkbox" id="chk-jobs-1st" checked/> Include LandTurtl Crystal Jobs</label>
+                                </div>
+                                <div class="checkbox">
+                                    <label data-toggle="tooltip" data-placement="bottom" title="Include the Hunter, Knight, Thief and Scholar.">
+                                        <input type="checkbox" id="chk-jobs-2nd" checked/> Include Salamandr Crystal Jobs</label>
+                                </div>
+                                <div class="checkbox">
+                                    <label data-toggle="tooltip" data-placement="bottom" title="Include the Geomancer, Dragoon, Viking, Karateka, M.Knight, Conjurer and Bard.">
+                                        <input type="checkbox" id="chk-jobs-3rd" checked/> Include Kraken Crystal Jobs</label>
+                                </div>
+                                <div class="checkbox">
+                                    <label data-toggle="tooltip" data-placement="bottom" title="Include the Summoner, Shaman and Warlock.">
+                                        <input type="checkbox" id="chk-jobs-4th" checked/> Include Titan Crystal Jobs</label>
+                                </div>
+                                <div class="checkbox">
+                                    <label data-toggle="tooltip" data-placement="bottom" title="Include the Ninja and the Sage.">
+                                        <input type="checkbox" id="chk-jobs-eureka" /> Include Eureka Crystal Jobs</label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" id="chk-jobs-shuffle" checked /> Shuffle jobs</label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" id="chk-jobs-commands" disabled /> Randomize commands</label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" id="chk-jobs-equipall" disabled /> Shuffled jobs can equip everything</label>
+                                </div>
+                            </div>
+                            <legend>Randomize Items</legend>
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" id="chk-items-chests" checked /> Randomize chests contents</label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" id="chk-items-dropsteals" checked /> Randomize enemy drops and steals</label>
+                                </div>
+                                <div class="checkbox">
+                                    <label data-toggle="tooltip" data-placement="bottom" title="These items can allow for sequence skips but cannot be sold or discarded, they include the Eye, Lute, Eureka Key and Sylx Key as well as the spells Mini and Toad.">
+                                        <input type="checkbox" id="chk-items-key" checked /> Include key items in item pool</label>
+                                </div>
+                                <div class="checkbox">
+                                    <label data-toggle="tooltip" data-placement="bottom" title="Ultimate items are defined as those that can only be (finitely) acquired from Forbidden Land Eureka, and they include the Masamune, Excalibur, Ragnarok and Full Moon.">
+                                        <input type="checkbox" id="chk-items-ultimate" /> Include ultimate items in item pool</label>
+                                </div>
+                                <div class="checkbox">
+                                    <label data-toggle="tooltip" data-placement="bottom" title="FEOKs are no fun, but this options adds all onion equipment to the pool.">
+                                        <input type="checkbox" id="chk-items-onion" /> Include onion equipment in item pool</label>
+                                </div>
+                                <div class="checkbox">
+                                    <label data-toggle="tooltip" data-placement="bottom" title="This adds Flare, Death, Meteo, Wwind, Life2, Holy and the Bahamut Summon.">
+                                        <input type="checkbox" id="chk-items-lvl8" /> Include Lvl 8 Magic and Summons in item pool</label>
+                                </div>
+                            </div>
+                            <legend>Randomize Shops</legend>
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" id="chk-shops-weapon" checked /> Randomize weapon shops</label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" id="chk-shops-armor" checked /> Randomize armor shops</label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" id="chk-shops-magic" checked /> Randomize magic shops</label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" id="chk-shops-eureka" disabled /> Include Eureka shops</label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" id="chk-shops-item" disabled /> Randomize item shops</label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" id="chk-shops-all" disabled /> All randomized shops can sell all items </label>
+                                </div>
+                            </div>
+                            <legend>Randomize Monsters</legend>
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" id="chk-monsters-skills" checked /> Randomize skills/status effects</label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" id="chk-monsters-elements" /> Randomize elemental properties</label>
+                                </div>
+                                <div class="checkbox">
+                                    <label data-toggle="tooltip" data-placement="bottom" title="Messes with attack power, hit%, attack multiplier, spirit/intellect, defense, evasion, magic defense and magic evasion of all monsters. Can have annoying results.">
+                                        <input type="checkbox" id="chk-monsters-stats" /> Randomize stats</label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" id="chk-monsters-bosses" checked /> Include bosses</label>
+                                </div>
+                            </div>
+                            <legend>Hardcore Options</legend>
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <label data-toggle="tooltip" data-placement="bottom" title="This can end up with stuff such as Lake Dol monsters moving just outside the Altar Cave so be warned.">
+                                        <input type="checkbox" id="chk-hc-encounters" /> Randomize encounter group areas</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <legend>Balancing</legend>
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" id="chk-bal-jobs-stats" checked /> Equalize starting stats across all jobs <small>(except for Onion Knights)</small></label>
+                                </div>
+                            </div>
+                            <legend>Boosts</legend>
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" id="chk-boost-exp" checked /> Boost experience gains (2.5x)</label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" id="chk-boost-gold" checked /> Boost gold drops (2.5x)</label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" id="chk-boost-cap" checked /> Boost capacity points gains (2.5x)</label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" id="chk-boost-skill" checked /> Boost job skill points gains (2.5x)</label>
+                                </div>
+                            </div>
+                            <legend>Visual effects</legend>
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" id="chk-ve-monster-palettes" /> Randomize monster palettes</label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" id="chk-ve-weapon-animations" /> Randomize weapon animations</label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" id="chk-ve-weapon-palettes" checked /> Randomize weapon palettes</label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" id="chk-ve-spell-animations" disabled /> Randomize spell animations (glitchy)</label>
+                                </div>
+                            </div>
+                            <legend>Miscellaneous</legend>
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" id="chk-misc-steptable" checked /> Randomize step counter table <small>(no more encounter skips for you)</small></label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" id="chk-misc-movespeed" checked /> Increase move speed in dungeons and towns</label>
+                                </div>
+                                <div class="checkbox">
+                                    <label data-toggle="tooltip" data-placement="bottom" title="This will give you 7 jobs from the first crystal, another 5 from the second and the third, and 2 from the fourth one. Meant to give you a decent pool of jobs as you're starting, but still keep something else as you progress.">
+                                        <input type="checkbox" id="chk-misc-morejobs" checked /> Balance the number of jobs you get from each crystal</label>
+                                </div>
+                            </div>
+                            <legend>Debug</legend>
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" id="chk-debug-feoks" /> 9999 HP FEOKs</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+        
+        <div class="panel-header" id="panel-updates">
+            <div class="panel panel-info">
+                <div class="panel-heading">Updates</div>
+                <div class="panel-body">
+                    <p>v0.21 May 18, 2016</p>
+                    <ul>
+                        <li>Shuffled jobs have the proper color palette in the pause menu</li>
+                    </ul>
+                    <p>v0.2 May 16, 2016</p>
+                    <ul>
+                        <li>Shuffled jobs are properly displayed in battle</li>
+                        <li>Added balancing of jobs starting stats</li>
+                    </ul>
+                    <p>v0.1 Somewhere early May, 2016</p>
+                    <ul>
+                        <li>Initial version</li>
+                        <li>Added shuffle jobs, randomize chests and enemies</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="panel-header" id="panel-issues">
+            <div class="panel panel-info">
+                <div class="panel-heading">Known issues</div>
+                <div class="panel-body">
+                    <ul>
+                        <li>Gold chests only have their gold amount randomized</li>
+                        <li>Not all chests are randomized</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    
+    
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <p>
+                        Got a question, complain, suggestion? <a target="_blank" href="http://twitter.com/NachoYacopu/">Hit me up on Twitter!</a>
+                    </p>
+                    <p>
+                        Styled with <a target="_blank" href="http://bootswatch.com/yeti/">Yeti</a>.
+                    </p>
+                </div>
+                <div class="col-lg-4">
+                    <a href="http://www.neocities.org/">
+                        <img src="http://yacopu.neocities.org/neocities.png" title="Hosted by neocities dot org"/>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+
+    <script src="../../bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <script src="../../bower_components/seedrandom/seedrandom.min.js"></script>
+
+    <script src="../../js/ff3-randomizer/byte-array.js"></script>
+    
+    <script src="../../js/ff3-randomizer/randomizer.js"></script>
+
+    <script src="../../js/ff3-randomizer/job.js"></script>
+    <script src="../../js/ff3-randomizer/memory.js"></script>
+    <script src="../../js/ff3-randomizer/util.js"></script>
+
+    <script src="../../js/ff3-randomizer/main.js"></script>
+</body>
+
+</html>
