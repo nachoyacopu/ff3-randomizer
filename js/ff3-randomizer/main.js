@@ -41,6 +41,10 @@ var FF3 = (function(window, $, module, undefined) {
             $('#file-rom').trigger('click');
         });
         
+        $('#btn-view-changelog').on('click', function(e) {
+            $('#modal-changelog').modal('show');
+        });
+        
         $('#file-rom').on('change', function(e) {
             ROM_FILE = e.target.files[0];
             // TODO: add validations for rom
