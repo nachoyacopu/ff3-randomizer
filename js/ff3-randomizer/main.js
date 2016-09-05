@@ -5,10 +5,24 @@ var FF3 = (function(window, $, module, undefined) {
     var ROM_FILE;
     var seed;
     var blob;
+    var ENABLED = true;
     
     module.log = function(msg) {
         console.log(msg);
     }
+    
+    function featureDetection() {
+        var errors = [], warnings = [];
+        
+        // look for slice() property in ByteArray (Uint8Array)
+        if (!('slice' in Uint8Array.prototype)) errors.push("This browser does not support the slice method for typed arrays.");
+        
+        if (errors.length) {
+            ENABLED = false;
+        };
+        
+        return ENABLED;
+    };
     
     function doRandomizer(buffer) {
         var result = module.randomizeROM(buffer);
@@ -30,8 +44,22 @@ var FF3 = (function(window, $, module, undefined) {
         window.URL.revokeObjectURL(url);
     };
     
+    function setTimeSeed() {
+        var d = new Date().getTime();
+        var seedStr = "";
+        while (d > 0) {
+            var char = 48 + parseInt(d % 32);
+            if ((char > 57) & (char < 64)) char =+ 22;
+            seedStr += String.fromCharCode(char);
+            d = parseInt(d / 32) + ((d > 3)?(d && 3):0);
+        };
+        
+        return(seedStr);
+    };
+    
     // Initialize on document ready
     $(document).ready(function() {
+        
         
         // Initialize bootstrap tooltips (opt-in)
         $('[data-toggle="tooltip"]').tooltip();
@@ -45,31 +73,45 @@ var FF3 = (function(window, $, module, undefined) {
             $('#modal-changelog').modal('show');
         });
         
-        $('#file-rom').on('change', function(e) {
-            ROM_FILE = e.target.files[0];
-            // TODO: add validations for rom
-            $('#btn-randomize').prop('disabled', false);
-        });
+        // Detect if user browser has the needed features
+        if (featureDetection()) {
         
-        $('#btn-randomize').on('click', function(e) {
-            
-            // Get seed (words for now)
-            seed = $('#txt-seed').val() || "bahamut";
-            
-            // Set random seed
-            Math.seedrandom(seed);
-            
-            // Load ROM and send to the randomizer
-            var reader = new FileReader();
-            reader.onloadend = function(e) { doRandomizer(reader.result); };
-            reader.readAsArrayBuffer(ROM_FILE);
-            
-        });
+            $('#file-rom').on('change', function(e) {
+                ROM_FILE = e.target.files[0];
+                // TODO: add validations for rom
+                $('#btn-randomize').prop('disabled', false);
+            });
         
-        $("#btn-send-file").on('click', function() {
-            sendFile();
-        });
-        //$('#download').on('click', sendFile);
+            $('#btn-randomize').on('click', function(e) {
+            
+                // Get seed (words for now)
+                seed = $('#txt-seed').val() || setTimeSeed();
+                $('#txt-seed').val(seed);
+            
+                // Set random seed
+                Math.seedrandom(seed);
+            
+                // Load ROM and send to the randomizer
+                var reader = new FileReader();
+                reader.onloadend = function(e) { doRandomizer(reader.result); };
+                reader.readAsArrayBuffer(ROM_FILE);
+            
+            });
+        
+            $("#btn-send-file").on('click', function() {
+                sendFile();
+            });
+            //$('#download').on('click', sendFile);
+            
+        } else {
+            // Warn the user
+            alert("The randomizer is not supported by this browser! \n Please use Chrome or Firefox!");
+            
+            // Disable buttons
+            $('#btn-load-rom').prop('disabled', true);
+            $('#file-rom').prop('disabled', true);
+                
+        }
         
     });
     
