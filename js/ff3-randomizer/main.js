@@ -19,6 +19,7 @@ var FF3 = (function(window, $, module, undefined) {
         
         if (errors.length) {
             ENABLED = false;
+            module.log(errors, warnings);
         };
         
         return ENABLED;
@@ -59,7 +60,6 @@ var FF3 = (function(window, $, module, undefined) {
     
     // Initialize on document ready
     $(document).ready(function() {
-        
         
         // Initialize bootstrap tooltips (opt-in)
         $('[data-toggle="tooltip"]').tooltip();

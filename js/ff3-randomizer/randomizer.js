@@ -77,7 +77,6 @@ var FF3 = (function(window, $, module, undefined) {
         var jobs_data = [];//, shuffled_jobs = [];
         for(var i=0;i<jobs_pool.length;i++) {
             jobs_data.push(new module.Job().loadFromROM(ROM, jobs_pool[i]));
-            console.log(jobs_data[i]);
         };
         
         for(var i=0;i<jobs_pool.length;i++) {
@@ -304,6 +303,11 @@ var FF3 = (function(window, $, module, undefined) {
         if ($('#chk-bal-jobs-stats').is(':checked'))
             balanceJobsStartingStats();
         
+        if ($('#chk-bal-jobs-commands').is(':checked')) {
+            module.applyPatch("bard_improved_scare", ROM);
+            module.applyPatch("bard_improved_cheer", ROM);
+        };
+        
         // Jobs
         generateJobsPool();
         if ($('#chk-jobs-shuffle').is(':checked'))
@@ -380,7 +384,6 @@ var FF3 = (function(window, $, module, undefined) {
             ROM[0x73C05] = 0x59;
             ROM[0x73C06] = 0x01;
         };
-        
         
         
         return ROM;
