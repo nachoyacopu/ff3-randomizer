@@ -149,7 +149,7 @@ var FF3 = (function(window, $, module, undefined) {
     function randomizeWeaponShops() {
         var weapons = [];
         for (var i=1;i<0x56;i++) weapons.push(i);
-        weapons = $(item_pool).filter(weapons);
+        weapons = $.map(weapons, function(a){return $.inArray(a, item_pool) < 0 ? null : a; });
         for(var s=0;s<module.address.shops.weapon.length;s++) {
             var ptr = module.address.shops.weapon[s];
             while (ROM[++ptr] !== 0) {
@@ -161,7 +161,7 @@ var FF3 = (function(window, $, module, undefined) {
     function randomizeArmorShops() {
         var armor = [];
         for (var i=0x58;i<0x97;i++) armor.push(i);
-        armor = $(item_pool).filter(armor);
+        armor = $.map(armor, function(a){return $.inArray(a, item_pool) < 0 ? null : a; });
         for(var s=0;s<module.address.shops.armor.length;s++) {
             var ptr = module.address.shops.armor[s];
             while (ROM[++ptr] !== 0) {
@@ -173,7 +173,7 @@ var FF3 = (function(window, $, module, undefined) {
     function randomizeMagicShops() {
         var magic = [];
         for (var i=0xc8;i<0xff;i++) magic.push(i);
-        magic = $(item_pool).filter(magic);
+        magic = $.map(magic, function(a){return $.inArray(a, item_pool) < 0 ? null : a; });
         for(var s=0;s<module.address.shops.magic.length;s++) {
             var ptr = module.address.shops.magic[s];
             while (ROM[++ptr] !== 0) {
