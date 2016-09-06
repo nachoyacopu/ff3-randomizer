@@ -4,6 +4,9 @@
 # Bower
 bower_components/
 
+# Fonts folder
+fonts/
+
 # OS X generated files
 .DS_Store
 .DS_Store?

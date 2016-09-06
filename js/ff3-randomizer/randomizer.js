@@ -210,6 +210,23 @@ var FF3 = (function(window, $, module, undefined) {
         ROM.randomize.boost(module.address.formCPValues, 256, 2.5);
     };
     
+    function randomizeMenuColor() {
+        var bgClr = parseInt(Math.random()*12+1);
+        var borderClr = bgClr + (parseInt(Math.random()*3+1) * 16);
+        // Pause
+        ROM[module.address.menuTextboxPalette+2] = bgClr;
+        ROM[module.address.menuTextboxPalette+6] = bgClr;
+        ROM[module.address.menuTextboxPalette+10] = bgClr;
+        ROM[module.address.menuTextboxPalette+13] = borderClr;
+        ROM[module.address.menuTextboxPalette+14] = bgClr;
+        // Overworld
+        ROM[module.address.owTextboxPalette+4] = borderClr;
+        ROM[module.address.owTextboxPalette+9] = bgClr;
+        // Battle
+        ROM[module.address.battleTextboxPalette+1] = borderClr;
+        ROM[module.address.battleTextboxPalette+2] = bgClr;
+    };
+    
     function randomizeMonsterPalettes() {
         for(var i=0;i<255;i++) {
             ROM[module.address.encounterLists+(i*6)] = parseInt(Math.random()*254+1);
@@ -308,6 +325,10 @@ var FF3 = (function(window, $, module, undefined) {
             module.applyPatch("bard_improved_cheer", ROM);
         };
         
+        if ($('#chk-bal-not-so-defenseless').is(':checked')) {
+            module.applyPatch("not_so_defenseless", ROM);
+        }
+        
         // Jobs
         generateJobsPool();
         if ($('#chk-jobs-shuffle').is(':checked'))
@@ -347,6 +368,8 @@ var FF3 = (function(window, $, module, undefined) {
             randomizeEncounterGroupsByArea();
         
         // Visual
+        if ($('#chk-ve-menu').is(':checked'))
+            randomizeMenuColor();
         if ($('#chk-ve-monster-palettes').is(':checked'))
             randomizeMonsterPalettes();
         if ($('#chk-ve-weapon-animations').is(':checked'))

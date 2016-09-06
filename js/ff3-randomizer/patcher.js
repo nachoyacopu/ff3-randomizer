@@ -22,9 +22,19 @@ var FF3 = (function(window, $, module, undefined) {
          *  ...to: Cheer increases party attack power by (Bard Level + 1)
          */
         "bard_improved_cheer": {
-            address: 0x6AD8E,
+            address: 0x6AD9E,
             data: [0xA0, 0x00, 0xB1, 0x6E, 0x0A, 0xA0, 0x19, 0x18, 0x71, 0x18, 0x90, 0x02, 0xA9, 0xFF]
-        }
+        },
+        
+        /* Not So Defenseless:
+         *
+         *  ...from: Defenseless sets your defense to 0
+         *  ...to: Defenseless sets your defense to (Defense / 2) + 1
+         */
+        "not_so_defenseless": {
+            address: 0x62083,
+            data: [0x46, 0x26, 0xE6, 0x26]
+        },
         
     };
     

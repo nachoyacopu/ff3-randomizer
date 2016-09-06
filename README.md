@@ -40,6 +40,7 @@ There's plenty of different options to change different aspects of the game that
 - **Improve subpar job commands** - This changes the way some commands work to make them (and their jobs) more appealing:
   - Bard's Scare reduces all enemies levels by ((Bard's Level - 1) / 2)
   - Bard's Cheer increases your entire party's attack power by ((Bard's Level - 1) / 2)
+- **Reduce penalties of "defenseless" state** - This option changes the "defenseless" state (that is applied when attempting to run away or using BuildUp), to go from setting your Defense to 0, to setting your Defense to half its original value (plus 1).
 
 ### Boosts
 - **Boost ___ gains (2.5x)** - Increases exp/gold/capacity points/job skill points gained after battle. Do note that there's still a cap of one level up/skill level up per encounter.
