@@ -1,5 +1,6 @@
 # Final Fantasy III Randomizer
-Web app to randomize Final Fantasy III (NES) Roms
+Web app to randomize Final Fantasy III (NES) Roms.
+You can find it [here!](http://yacopu.neocities.org/pages/ff3-randomizer/)
 
 ## How to use
 - Click the "Select ROM file" button. A dialog will popup asking you for a ROM file that you must provide.
