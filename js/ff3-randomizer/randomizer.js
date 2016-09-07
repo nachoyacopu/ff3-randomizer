@@ -146,6 +146,24 @@ var FF3 = (function(window, $, module, undefined) {
         };
     };
     
+    function randomizeEquipment() {
+        var elements = $('#chk-eq-elements').is(':checked');
+        var bonuses = $('#chk-eq-bonuses').is(':checked');
+        if (!(elements && bonuses)) return null;
+        
+        for (var i=1;i<0x97;i++) {
+            if (elements) {
+                var r = parseInt(Math.random() * 0xFFFF);
+                ROM[module.address.equipmentData + (i << 3)] = (r & 0xFF) & (r >> 8);
+            };
+            if (bonuses) {
+                var r = parseInt(Math.random() * 0xFFFF);
+                ROM[module.address.equipmentData + (i << 3) + 6] = (r & 0xFF) & (r >> 8);
+            };
+        };
+        
+    };
+    
     function randomizeWeaponShops() {
         var weapons = [];
         for (var i=1;i<0x56;i++) weapons.push(i);
@@ -349,6 +367,10 @@ var FF3 = (function(window, $, module, undefined) {
             randomizeArmorShops();
         if ($('#chk-shops-magic').is(':checked'))
             randomizeMagicShops();
+        
+        // Equipment
+        randomizeEquipment();
+        
         
         // Monsters
         handleMonsterRandomization();

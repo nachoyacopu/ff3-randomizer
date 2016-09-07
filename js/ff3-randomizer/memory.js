@@ -32,6 +32,7 @@ var FF3 = (function(window, $, module, undefined) {
         weaponGFX: 0x5D0A8,
 		formCPValues: 0x732BE,
 		specialAttackTable: 0x61210,
+        equipmentData: 0x61410,
 		prices: 0x21E10,
 		shopItems: 0x5A080,
 		chestsData: 0x3C10,
