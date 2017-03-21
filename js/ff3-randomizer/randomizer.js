@@ -87,9 +87,7 @@ var FF3 = (function(window, $, module, undefined) {
             
                 // check for white magic requirement
                 if ($.inArray(jobs_data[next]._id, module.white_magic_jobs) > 0) canUseWhiteMagic++;
-                
-                console.log("i: " + i + " job: " + jobs_data[next]._id + " canUse check: " + canUseWhiteMagic);
-                
+                                
             } while ((canUseWhiteMagic == 0) && (i >= (7 - 1)));
             
             jobs_data[next].saveToROM(ROM, jobs_pool[i]);
@@ -104,28 +102,52 @@ var FF3 = (function(window, $, module, undefined) {
         var rStats = $('#chk-monsters-stats').is(':checked');
         if (!(rSkill || rElems || rStats)) return null;
         
-        
         var numEnemies = $('#chk-monsters-bosses').is(':checked') ? 0xE6 : 0xCC;
+        
+        var enemiesSkillset = [], bossesSkillset = [];
+        if (rSkill) {
+            // create library of normal enemies and bosses skills
+            for (var i=0;i<numEnemies;i++) {
+                var thisMonsterPtr = module.address.monsterCombatData + (i*16);
+                var skillset = [
+                    ROM[thisMonsterPtr+3],
+                    ROM[thisMonsterPtr+14]
+                ];
+                
+                if (i > 0xCC) {
+                    bossesSkillset.push(skillset);
+                } else {
+                    enemiesSkillset.push(skillset);
+                }
+            };
+        };
+        
+        
         for (var i=0;i<numEnemies;i++) {
             var thisMonsterPtr = module.address.monsterCombatData + (i*16);
             var thisMonsterLvl = ROM[thisMonsterPtr];
             
             if(rSkill) {
-                // lvl/2% chance for normal enemies to have special attack rate
-                // 95% for bosses
-                if(Math.random() < ((i > 0xCC) ? 0.95 : (thisMonsterLvl/2) )) {
-                    ROM[thisMonsterPtr+3] = parseInt(Math.random()*thisMonsterLvl+1);
-                    ROM[thisMonsterPtr+14] = parseInt(Math.random()*0x3D+1);
+                
+                if (i > 0xCC) {
+                    // boss
+                    var sk = parseInt(Math.random() * bossesSkillset.length);
+                    ROM[thisMonsterPtr + 3] = bossesSkillset[sk][0];
+                    ROM[thisMonsterPtr + 14] = bossesSkillset[sk][1];
                 } else {
-                    ROM[thisMonsterPtr+3] = 0;
-                    ROM[thisMonsterPtr+14] = 0;
-                };
+                    // enemy
+                    var sk = parseInt(Math.random() * enemiesSkillset.length);
+                    ROM[thisMonsterPtr + 3] = enemiesSkillset[sk][0];
+                    ROM[thisMonsterPtr + 14] = enemiesSkillset[sk][1];
+                }
+                
                 // lvl% chance for enemies to have a status on hit effect
                 if(Math.random() < (thisMonsterLvl / 100)) {
                     ROM[thisMonsterPtr+10] = module.monster_on_hit[parseInt(Math.random()*module.monster_on_hit.length)];
                 } else {
                     ROM[thisMonsterPtr+10] = 0;
                 };
+                
             };
             
             if(rElems) {

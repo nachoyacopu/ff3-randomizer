@@ -7,7 +7,7 @@ var FF3 = (function(window, $, module, undefined) {
     var blob;
     var ENABLED = true;
     
-    var VERSION = 0.3;
+    var VERSION = 0.31;
     
     module.log = function(msg) {
         console.log(msg);
@@ -36,7 +36,7 @@ var FF3 = (function(window, $, module, undefined) {
     function sendFile() {
         if (blob === undefined) return -1;
         
-        var filename = "ff3-["+seed+"].nes";
+        var filename = "ff3-v" + VERSION.toString() + "["+seed+"].nes";
         var url = window.URL.createObjectURL(blob);
         var a = document.createElement("a");
         document.body.appendChild(a);
@@ -63,6 +63,9 @@ var FF3 = (function(window, $, module, undefined) {
     
     // Initialize on document ready
     $(document).ready(function() {
+        
+        // set Version
+        $('#text-version').text("v" + VERSION.toString());
         
         // Initialize bootstrap tooltips (opt-in)
         $('[data-toggle="tooltip"]').tooltip();
@@ -99,6 +102,7 @@ var FF3 = (function(window, $, module, undefined) {
                 reader.readAsArrayBuffer(ROM_FILE);
                 
                 $('#txt-seed').attr('value', seed);
+                $('#btn-randomize').prop('disabled', true);
             
             });
         
