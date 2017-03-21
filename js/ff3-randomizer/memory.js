@@ -37,8 +37,10 @@ var FF3 = (function(window, $, module, undefined) {
 		shopItems: 0x5A080,
 		chestsData: 0x3C10,
 		moveSpeed: 0x7CDE8,
-        moveSpeed2: 0x7b747,
-        moveSpeed3: 0x7b775,
+        moveSpeed2: 0x7B747,
+        moveSpeed3: 0x7B775,
+		moveSpeedBattle: 0x67D5B,
+        moveSpeedBattle2: 0x67D66,
         jobCover: 0x6A152,
 		runaway: 0x6A936,
         skillPointsPerLevel: 0x6BE20,
@@ -101,6 +103,15 @@ var FF3 = (function(window, $, module, undefined) {
             0xCE  // Bahamut
 	   ]
     };
+    
+    module.white_magic_jobs = [
+        0x03,   // White Wizard
+        0x05,   // Red Wizard
+        0x06,   // Hunter
+        0x0E,   // M.Knight
+        0x12,   // Devout
+        0x14    // Sage
+    ];
     
     module.eureka_shops = [0x5a116, 0x5a11d, 0x5a125];
     

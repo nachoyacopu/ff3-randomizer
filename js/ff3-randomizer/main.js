@@ -7,6 +7,8 @@ var FF3 = (function(window, $, module, undefined) {
     var blob;
     var ENABLED = true;
     
+    var VERSION = 0.3;
+    
     module.log = function(msg) {
         console.log(msg);
     }
@@ -50,11 +52,12 @@ var FF3 = (function(window, $, module, undefined) {
         var seedStr = "";
         while (d > 0) {
             var char = 48 + parseInt(d % 32);
-            if ((char > 57) & (char < 64)) char =+ 22;
+            if ((char > 57) & (char < 65)) char =+ 22;
             seedStr += String.fromCharCode(char);
             d = parseInt(d / 32) + ((d > 3)?(d && 3):0);
         };
         
+        console.log("generated seed: " + seedStr);
         return(seedStr);
     };
     
@@ -86,8 +89,7 @@ var FF3 = (function(window, $, module, undefined) {
             
                 // Get seed (words for now)
                 seed = $('#txt-seed').val() || setTimeSeed();
-                $('#txt-seed').val(seed);
-            
+                
                 // Set random seed
                 Math.seedrandom(seed);
             
@@ -95,6 +97,8 @@ var FF3 = (function(window, $, module, undefined) {
                 var reader = new FileReader();
                 reader.onloadend = function(e) { doRandomizer(reader.result); };
                 reader.readAsArrayBuffer(ROM_FILE);
+                
+                $('#txt-seed').attr('value', seed);
             
             });
         

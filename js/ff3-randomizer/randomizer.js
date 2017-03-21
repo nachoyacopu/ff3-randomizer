@@ -79,13 +79,24 @@ var FF3 = (function(window, $, module, undefined) {
             jobs_data.push(new module.Job().loadFromROM(ROM, jobs_pool[i]));
         };
         
+        var canUseWhiteMagic = 0;
+        
         for(var i=0;i<jobs_pool.length;i++) {
-            var next = parseInt(Math.random() * jobs_data.length);
+            do {
+                var next = parseInt(Math.random() * jobs_data.length);
+            
+                // check for white magic requirement
+                if ($.inArray(jobs_data[next]._id, module.white_magic_jobs) > 0) canUseWhiteMagic++;
+                
+                console.log("i: " + i + " job: " + jobs_data[next]._id + " canUse check: " + canUseWhiteMagic);
+                
+            } while ((canUseWhiteMagic == 0) && (i >= (7 - 1)));
+            
             jobs_data[next].saveToROM(ROM, jobs_pool[i]);
             jobs_data.splice(next, 1);
-            
         };
     };
+    
     
     function handleMonsterRandomization() {
         var rSkill = $('#chk-monsters-skills').is(':checked');
@@ -201,7 +212,7 @@ var FF3 = (function(window, $, module, undefined) {
     };
     
     function randomizeChests() {
-        ROM.set(random_array_from(item_pool, 256), module.address.chestsData);
+        ROM.set(random_array_from(item_pool, 512), module.address.chestsData);
     };
     
     function randomizeDropsSteals() {
@@ -404,10 +415,16 @@ var FF3 = (function(window, $, module, undefined) {
         // Misc
         if ($('#chk-misc-steptable').is(':checked'))
             randomizeStepTable(ROM);
+        
         if ($('#chk-misc-movespeed').is(':checked')) {
-            ROM[module.address.moveSpeed] = 2;
-            ROM[module.address.moveSpeed2] = 2;
-            ROM[module.address.moveSpeed3] = 2;
+            ROM[module.address.moveSpeed] = 0x02;
+            ROM[module.address.moveSpeed2] = 0x02;
+            ROM[module.address.moveSpeed3] = 0x02;
+        };
+        
+        if ($('#chk-misc-movespeed-battle').is(':checked')) {
+            ROM[module.address.moveSpeedBattle] = 0xFE;
+            ROM[module.address.moveSpeedBattle2] = 0x02;
         };
         
         // Number of crystal jobs

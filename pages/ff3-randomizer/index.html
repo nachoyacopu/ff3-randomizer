@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Final Fantasy III Randomizer - by NachoYacopu</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     
@@ -26,7 +26,7 @@
         <div class="page-header">
             <div class="row">
                 <div class="col-lg-8 col-md-7 col-sm-6">
-                    <h1>Final Fantasy III Randomizer <small class="text-info">v0.23</small></h1>
+                    <h1>Final Fantasy III Randomizer <small class="text-info">v0.3</small></h1>
                     <p class="lead">by NachoYacopu</p>
                     
                     <button type="button" id="btn-view-changelog" class="btn btn-info btn-xs">
@@ -36,7 +36,7 @@
                 </div>
                 <div class="col-lg-4 col-md-5 col-sm-6">
                     <div class="logo">
-                        <img src="../../assets/FF3NES-Hein.gif" />
+                        <img alt="Hahaha!" src="../../assets/FF3NES-Hein.gif" />
                     </div>
                 </div>
             </div>
@@ -151,7 +151,7 @@
                                 </div>
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" id="chk-eq-bonuses" checked /> Randomize equipment stat bonuses</label>
+                                        <input type="checkbox" id="chk-eq-bonuses" /> Randomize equipment stat bonuses</label>
                                 </div>
                             </div>
                             <legend>Randomize Shops</legend>
@@ -189,7 +189,7 @@
                                 </div>
                                 <div class="checkbox">
                                     <label>
-                                        <input type="checkbox" id="chk-monsters-elements" /> Randomize elemental properties</label>
+                                        <input type="checkbox" id="chk-monsters-elements" checked /> Randomize elemental properties</label>
                                 </div>
                                 <div class="checkbox">
                                     <label data-toggle="tooltip" data-placement="bottom" title="Messes with attack power, hit%, attack multiplier, spirit/intellect, defense, evasion, magic defense and magic evasion of all monsters. Can have annoying results.">
@@ -278,6 +278,10 @@
                                         <input type="checkbox" id="chk-misc-movespeed" checked /> Increase move speed in dungeons and towns</label>
                                 </div>
                                 <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" id="chk-misc-movespeedbattle" checked /> Increase move speed in battle</label>
+                                </div>
+                                <div class="checkbox">
                                     <label data-toggle="tooltip" data-placement="bottom" title="This will give you 7 jobs from the first crystal, another 5 from the second and the third, and 2 from the fourth one. Meant to give you a decent pool of jobs as you're starting, but still keep something else as you progress.">
                                         <input type="checkbox" id="chk-misc-morejobs" checked /> Balance the number of jobs you get from each crystal</label>
                                 </div>
@@ -304,11 +308,17 @@
                         <h4 class="modal-title">Changelog</h4>
                     </div>
                     <div class="modal-body">
-                        <span>v0.23</span> <small>Septemter 6, 2016</small>
+                        <span>v0.3</span> <small>March 20, 2017</small>
+                        <ul>
+                            <li>Added check to prevent being left with no job that can use White Magic</li>
+                            <li>Added randomization to chests in the Flooded Continent</li>
+                            <li>Sped up player movement in battles</li>
+                        </ul>
+                        <span>v0.23</span> <small>September 6, 2016</small>
                         <ul>
                             <li>Added random menu colors, balancing to defenseless state</li>
                         </ul>
-                        <span>v0.22</span> <small>Septemter 5, 2016</small>
+                        <span>v0.22</span> <small>September 5, 2016</small>
                         <ul>
                             <li>First version of class balancing/fixing (more info in github readme)</li>
                         </ul>
@@ -366,7 +376,7 @@
                 </div>
                 <div class="col-lg-4">
                     <a href="http://www.neocities.org/">
-                        <img src="http://yacopu.neocities.org/neocities.png" title="Hosted by neocities dot org"/>
+                        <img src="http://yacopu.neocities.org/neocities.png" alt="Hosted by neocities dot org"/>
                     </a>
                 </div>
             </div>
