@@ -413,6 +413,9 @@ var FF3 = (function(window, $, module, undefined) {
         
         
         // Misc
+        if ($('#chk-misc-saveanywhere').is(':checked'))
+            ROM[0x7A5B5] = 0x00;
+        
         if ($('#chk-misc-steptable').is(':checked'))
             randomizeStepTable(ROM);
         
@@ -426,6 +429,9 @@ var FF3 = (function(window, $, module, undefined) {
             ROM[module.address.moveSpeedBattle] = 0xFE;
             ROM[module.address.moveSpeedBattle2] = 0x02;
         };
+        
+        if ($('#chk-misc-fatchocobo').is(':checked'))
+            ROM[0x7B4D1] = 0x0D;
         
         // Number of crystal jobs
         if ($('#chk-misc-morejobs').is(':checked')) {
