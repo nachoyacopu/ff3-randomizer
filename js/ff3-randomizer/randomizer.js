@@ -465,7 +465,7 @@ var FF3 = (function(window, $, module, undefined) {
         };
         
         if ($('#chk-misc-fatchocobo').is(':checked'))
-            ROM[0x7B4D1] = 0x0D;
+            ROM[0x7B4D2] = 0x0D;
         
         // Number of crystal jobs
         if ($('#chk-misc-morejobs').is(':checked')) {
