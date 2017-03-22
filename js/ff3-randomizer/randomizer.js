@@ -250,15 +250,27 @@ var FF3 = (function(window, $, module, undefined) {
     };
     
     function boostExp() {
-        ROM.randomize.boost16(module.address.monsterExpValues, 64, 2.5);
+        //ROM.randomize.boost16(module.address.monsterExpValues, 64, 2.5);
+        for(var i=0;i<64;i++) {
+            var expVal = ROM.getInt16(module.address.monsterExpValues + (i << 1));
+            expVal = Math.round(Math.pow(expVal, 1.175));
+            // round numbers
+            var expLog = Math.floor(Math.log10(expVal)) - 2;
+            if (expLog > 0)
+                expVal = Math.round(expVal / Math.pow(10, expLog)) * Math.pow(10, expLog);
+            
+            expVal = expVal - (expVal % 4);
+            ROM.setInt16(expVal, module.address.monsterExpValues + (i << 1));
+            
+        }
     };
     
     function boostGold() {
-        ROM.randomize.boost16(module.address.monsterGoldValues, 230, 2.5);
+        ROM.randomize.boost16(module.address.monsterGoldValues, 230, 2);
     };
     
     function boostCapacity() {
-        ROM.randomize.boost(module.address.formCPValues, 256, 2.5);
+        ROM.randomize.boost(module.address.formCPValues, 256, 2);
     };
     
     function randomizeMenuColor() {
@@ -416,7 +428,7 @@ var FF3 = (function(window, $, module, undefined) {
         if ($('#chk-boost-cap').is(':checked'))
             boostCapacity();
         if ($('#chk-boost-skill').is(':checked'))
-            ROM[module.address.skillPointsPerLevel] = 40;
+            ROM[module.address.skillPointsPerLevel] = 50;
         
         // Hardcore
         if ($('#chk-hc-encounters').is(':checked'))
