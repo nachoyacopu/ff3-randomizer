@@ -253,7 +253,7 @@ var FF3 = (function(window, $, module, undefined) {
         //ROM.randomize.boost16(module.address.monsterExpValues, 64, 2.5);
         for(var i=0;i<64;i++) {
             var expVal = ROM.getInt16(module.address.monsterExpValues + (i << 1));
-            expVal = Math.round(Math.pow(expVal, 1.175));
+            expVal = Math.round(Math.pow(expVal, 1.15));
             // round numbers
             var expLog = Math.floor(Math.log10(expVal)) - 2;
             if (expLog > 0)
