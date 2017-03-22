@@ -5,6 +5,13 @@ var FF3 = (function(window, $, module, undefined) {
     var ROM;
     var item_pool, jobs_pool;
     
+    // tan random is a weighted random function that gives numbers between [-range to +range]
+    // its weighted to be more likely to give numbers closer to 0 (less deviation)
+    function tanRandom(range) {
+        var r = (Math.random() - 0.5) * (3.1415296 / 2);
+        return Math.pow(Math.tan(r), 2) * Math.sign(r) * range;
+    };
+    
     function generateItemPool() {
         // array of items
         item_pool = [];
@@ -104,6 +111,9 @@ var FF3 = (function(window, $, module, undefined) {
         
         var numEnemies = $('#chk-monsters-bosses').is(':checked') ? 0xE6 : 0xCC;
         
+        var ENEMY_DEVIATION = 0.25;
+        var BOSS_DEVIATION = 0.5;
+        
         var enemiesSkillset = [], bossesSkillset = [];
         if (rSkill) {
             // create library of normal enemies and bosses skills
@@ -122,21 +132,27 @@ var FF3 = (function(window, $, module, undefined) {
             };
         };
         
+        // var howManyEnemies = 0xCC, howManyBosses = 0xE6 - 0xCC;
         
         for (var i=0;i<numEnemies;i++) {
             var thisMonsterPtr = module.address.monsterCombatData + (i*16);
             var thisMonsterLvl = ROM[thisMonsterPtr];
             
             if(rSkill) {
-                
                 if (i > 0xCC) {
                     // boss
-                    var sk = parseInt(Math.random() * bossesSkillset.length);
+                    var dev = Math.round(tanRandom(BOSS_DEVIATION * bossesSkillset.length));
+                    var sk = i - 0xCD + dev;
+                    if ((sk < 0) || (sk >= bossesSkillset.length)) sk = i - 0xCD - dev;
+                    
                     ROM[thisMonsterPtr + 3] = bossesSkillset[sk][0];
                     ROM[thisMonsterPtr + 14] = bossesSkillset[sk][1];
                 } else {
                     // enemy
-                    var sk = parseInt(Math.random() * enemiesSkillset.length);
+                    var dev = Math.round(tanRandom(ENEMY_DEVIATION * enemiesSkillset.length));
+                    var sk = i + dev;
+                    if ((sk < 0) || (sk >= enemiesSkillset.length)) sk = i - dev;
+                    
                     ROM[thisMonsterPtr + 3] = enemiesSkillset[sk][0];
                     ROM[thisMonsterPtr + 14] = enemiesSkillset[sk][1];
                 }
