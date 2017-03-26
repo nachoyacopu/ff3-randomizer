@@ -109,6 +109,8 @@ var FF3 = (function(window, $, module, undefined) {
         var rStats = $('#chk-monsters-stats').is(':checked');
         if (!(rSkill || rElems || rStats)) return null;
         
+        var rDrops = $('#chk-items-dropsteals').is(':checked');
+        
         var numEnemies = $('#chk-monsters-bosses').is(':checked') ? 0xE6 : 0xCC;
         
         var ENEMY_DEVIATION = 0.25;
@@ -116,7 +118,7 @@ var FF3 = (function(window, $, module, undefined) {
         
         var enemiesSkillset = [], bossesSkillset = [];
         if (rSkill) {
-            // create library of normal enemies and bosses skills
+            // create library of normal enemies and bosses skillsets
             for (var i=0;i<numEnemies;i++) {
                 var thisMonsterPtr = module.address.monsterCombatData + (i*16);
                 var skillset = [
@@ -135,8 +137,15 @@ var FF3 = (function(window, $, module, undefined) {
         // var howManyEnemies = 0xCC, howManyBosses = 0xE6 - 0xCC;
         
         for (var i=0;i<numEnemies;i++) {
+            
+            // quick fix: do not randomize Goblin/LandTurtl
+            if ((i === 0x00) || (i === 0xCC)) continue;
+            
             var thisMonsterPtr = module.address.monsterCombatData + (i*16);
             var thisMonsterLvl = ROM[thisMonsterPtr];
+            
+            if(rDrops)
+                ROM[thisMonsterPtr + 15] = parseInt(Math.random()*255);
             
             if(rSkill) {
                 if (i > 0xCC) {
@@ -404,9 +413,14 @@ var FF3 = (function(window, $, module, undefined) {
             module.applyPatch("bard_improved_cheer", ROM);
         };
         
-        if ($('#chk-bal-not-so-defenseless').is(':checked')) {
+        if ($('#chk-bal-not-so-defenseless').is(':checked'))
             module.applyPatch("not_so_defenseless", ROM);
-        }
+        
+        
+        if ($('#chk-bal-items').is(':checked')) {
+            // Ribbon price: 60000
+            ROM.setInt16(60000, 0x21EF2);
+        };
         
         // Jobs
         generateJobsPool();
