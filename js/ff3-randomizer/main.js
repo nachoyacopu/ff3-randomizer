@@ -36,7 +36,7 @@ var FF3 = (function(window, $, module, undefined) {
     function sendFile() {
         if (blob === undefined) return -1;
         
-        var filename = "ff3-v" + VERSION.toString() + "["+seed+"].nes";
+        var filename = "ff3-v" + VERSION.toString() + "_"+seed+".nes";
         var url = window.URL.createObjectURL(blob);
         var a = document.createElement("a");
         document.body.appendChild(a);

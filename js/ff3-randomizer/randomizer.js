@@ -506,8 +506,8 @@ var FF3 = (function(window, $, module, undefined) {
         // Number of crystal jobs
         if ($('#chk-misc-morejobs').is(':checked')) {
             ROM[module.address.numOfCrystalJobs[0]] = 7;
-            ROM[module.address.numOfCrystalJobs[1]] = 12;
-            ROM[module.address.numOfCrystalJobs[2]] = 17;
+            ROM[module.address.numOfCrystalJobs[1]] = 11;
+            ROM[module.address.numOfCrystalJobs[2]] = 15;
             ROM[module.address.numOfCrystalJobs[3]] = 19;
         };
         
