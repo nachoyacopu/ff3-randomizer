@@ -138,14 +138,20 @@ var FF3 = (function(window, $, module, undefined) {
         
         for (var i=0;i<numEnemies;i++) {
             
-            // quick fix: do not randomize Goblin/LandTurtl
-            if ((i === 0x00) || (i === 0xCC)) continue;
             
             var thisMonsterPtr = module.address.monsterCombatData + (i*16);
             var thisMonsterLvl = ROM[thisMonsterPtr];
             
-            if(rDrops)
-                ROM[thisMonsterPtr + 15] = parseInt(Math.random()*255);
+            if(rDrops) {
+                var droprategroup = parseInt(Math.random()*0x800);
+                // byte: rrrggggg - r: drop rate, g: drop group
+                var ggggg = droprategroup & 0x1F;
+                var rrr = 7 - Math.floor(Math.sqrt((droprategroup & 0x7E0) >> 5));
+                ROM[thisMonsterPtr + 15] = (rrr << 5) + ggggg;
+            }
+            
+            // quick fix: do not further randomize Goblin/LandTurtl
+            if ((i === 0x00) || (i === 0xCC)) continue;
             
             if(rSkill) {
                 if (i > 0xCC) {

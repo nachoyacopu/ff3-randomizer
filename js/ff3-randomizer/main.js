@@ -7,7 +7,7 @@ var FF3 = (function(window, $, module, undefined) {
     var blob;
     var ENABLED = true;
     
-    var VERSION = 0.31;
+    var VERSION = 0.32;
     
     module.log = function(msg) {
         console.log(msg);
