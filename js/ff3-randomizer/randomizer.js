@@ -114,7 +114,7 @@ var FF3 = (function(window, $, module, undefined) {
         var numEnemies = $('#chk-monsters-bosses').is(':checked') ? 0xE6 : 0xCC;
         
         var ENEMY_DEVIATION = 0.25;
-        var BOSS_DEVIATION = 0.5;
+        var BOSS_DEVIATION = 0.33;
         
         var enemiesSkillset = [], bossesSkillset = [];
         if (rSkill) {
@@ -125,6 +125,9 @@ var FF3 = (function(window, $, module, undefined) {
                     ROM[thisMonsterPtr+3],
                     ROM[thisMonsterPtr+14]
                 ];
+                
+                // prevent splitting enemies (skillset 0x10) to no skills (0x00)
+                if (skillset[1] = 0x10) skillset[1] = 0x00;
                 
                 if (i > 0xCC) {
                     bossesSkillset.push(skillset);
@@ -355,6 +358,32 @@ var FF3 = (function(window, $, module, undefined) {
         ROM.set(new_table, module.address.stepTable);
     };
     
+    function allEncountersRunnable() {
+        for(var i=0;i<512;i++) {
+            var encounterFlags = ROM[module.address.encounterSettings + (i << 1) + 1];
+            var oldEnc = encounterFlags;
+            // flags: rbxx xxxx - r: if set, can't run, b: if set, is boss
+            
+            // check for first bahamut encounter
+            if (i !== 0x055) {
+                if (encounterFlags & 0x40) {
+                    // is a boss? set as non runnable
+                    encounterFlags = encounterFlags | 0x80;
+                } else {
+                    // else set as runnable
+                    encounterFlags = encounterFlags & 0x7f;
+                }
+            } else {
+                // Ensure first Bahamut encounter is always runnable and still flagged as a boss
+                encounterFlags = (encounterFlags & 0x3F) | 0x40;
+            }
+            
+            // reset flag
+            ROM[module.address.encounterSettings + (i << 1) + 1] = encounterFlags;
+            
+        };
+    }
+    
     function random_array_from(arr, size) {
         var newArray = [];
         for(var i=0;i<size;i++) {
@@ -487,7 +516,11 @@ var FF3 = (function(window, $, module, undefined) {
             ROM[0x7A5B5] = 0x00;
         
         if ($('#chk-misc-steptable').is(':checked'))
-            randomizeStepTable(ROM);
+            randomizeStepTable();
+        
+        if ($('#chk-all-encounters-runnable').is(':checked'))
+            allEncountersRunnable();
+        
         
         if ($('#chk-misc-movespeed').is(':checked')) {
             ROM[module.address.moveSpeed] = 0x02;

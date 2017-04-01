@@ -25,14 +25,14 @@ There's plenty of different options to change different aspects of the game that
 - **Include ___ in item pool** - Determines whether or not you want certain sets of items in the item pool - items excluded will not be considered to appear on any of the randomizer options
 
 ### Randomize Equipment
-- **Randomize equipment elemental properties** - Both weapons and armor has random multiple elemental properties.
+- **Randomize equipment elemental properties** - Both weapons and armor have random multiple elemental properties.
 - **Randomize equipment stat bonuses** - Both weapons and armor get random boosts when equipped such as +5 to a stat or increased elemental damage.
 
 ### Randomize Shops
 - **Randomize ___ shops** - Changes all shops of a certain type to sell random items of that type.
 
 ### Randomize Monsters
-- **Randomize skill/status effects** - Gives all enemies random status ailments they can inflict on hit as well as a random skillset. There's a weighting in this randomization to prevent weak enemies/bosses to get skillset from endgame enemies/bosses and viceversa. 
+- **Randomize skill/status effects** - Gives all enemies random status ailments they can inflict on hit as well as a random skillset (except for split). There's a weighting in this randomization to prevent weak enemies/bosses to get skillset from endgame enemies/bosses and viceversa. 
 - **Randomize elemental properties** - Gives all enemies random elemental resistances and weaknesses.
 - **Randomize stats** - Slightly alters enemies stats - trying to keep in line with every enemy's actual level (so you won't see Goblins hitting you like 2-headed Dragon or something).
 - **Include bosses** - Determines whether to also randomize bosses according to the properties specified above.
@@ -58,6 +58,7 @@ There's plenty of different options to change different aspects of the game that
   - Caveat 1: Saving inside the Altar Cave before defeating the Land Turtle will put you next to Argass Castle with no way to progress, so start a new game if this happens.
   - Caveat 2: You can use the save anywhere feature essentially as an infinite Exit spell - just save after you're done exploring a place, then reset - you'll be placed back in the overworld when you reload your save.
 - **Randomize step counter table** - This shuffles the encounter table, which means you'll get encounter at random step values.
+- **Make all non-boss encounters runnable** - Enables running away on all random encounters, including those pesky formations in the Cave of Darkness or the lower floors of the Ancient Ruins.
 - **Can stash key items in the Fat Chocobo** - Allows you to stash items such as the elemental fangs and keys in the Fat Chocobo - very handy if you get extra copies of these and you want them to stop cluttering your inventory. Put those Carrots to good use!
 - **Balance the number of jobs you get from each crystal** - Changes how many jobs you get from each crystal - this options sets it to 7 new jobs from the first crystal, and 4 from each succesive one, except for the Eureka Crystal which gives 2 still.
 
