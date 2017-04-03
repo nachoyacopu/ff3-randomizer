@@ -380,9 +380,16 @@ var FF3 = (function(window, $, module, undefined) {
             
             // reset flag
             ROM[module.address.encounterSettings + (i << 1) + 1] = encounterFlags;
-            
         };
-    }
+    };
+    
+    function halfEncounterRate() {
+        for(var i=0;i<512;i++) {
+            // Load and reduce threat by half (shift right 1)
+            var threat = ROM[module.address.encounterThreatLevels + i] >> 1;
+            ROM[module.address.encounterThreatLevels + i] = threat;
+        };
+    };
     
     function random_array_from(arr, size) {
         var newArray = [];
@@ -518,9 +525,11 @@ var FF3 = (function(window, $, module, undefined) {
         if ($('#chk-misc-steptable').is(':checked'))
             randomizeStepTable();
         
+        if ($('#chk-half-encounter-rate').is(':checked'))
+            halfEncounterRate();
+        
         if ($('#chk-all-encounters-runnable').is(':checked'))
             allEncountersRunnable();
-        
         
         if ($('#chk-misc-movespeed').is(':checked')) {
             ROM[module.address.moveSpeed] = 0x02;

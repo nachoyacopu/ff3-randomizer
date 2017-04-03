@@ -1,6 +1,6 @@
 # Final Fantasy III Randomizer
 Web app to randomize Final Fantasy III (NES) Roms.
-Current version: 0.32
+Current version: 0.33
 You can find it [here!](http://yacopu.neocities.org/pages/ff3-randomizer/)
 
 ## How to use
@@ -58,6 +58,7 @@ There's plenty of different options to change different aspects of the game that
   - Caveat 1: Saving inside the Altar Cave before defeating the Land Turtle will put you next to Argass Castle with no way to progress, so start a new game if this happens.
   - Caveat 2: You can use the save anywhere feature essentially as an infinite Exit spell - just save after you're done exploring a place, then reset - you'll be placed back in the overworld when you reload your save.
 - **Randomize step counter table** - This shuffles the encounter table, which means you'll get encounter at random step values.
+- **Cut encounter rate by half** - Halves encounter rate in all areas where random encounters can happen.
 - **Make all non-boss encounters runnable** - Enables running away on all random encounters, including those pesky formations in the Cave of Darkness or the lower floors of the Ancient Ruins.
 - **Can stash key items in the Fat Chocobo** - Allows you to stash items such as the elemental fangs and keys in the Fat Chocobo - very handy if you get extra copies of these and you want them to stop cluttering your inventory. Put those Carrots to good use!
 - **Balance the number of jobs you get from each crystal** - Changes how many jobs you get from each crystal - this options sets it to 7 new jobs from the first crystal, and 4 from each succesive one, except for the Eureka Crystal which gives 2 still.

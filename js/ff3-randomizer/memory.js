@@ -23,6 +23,7 @@ var FF3 = (function(window, $, module, undefined) {
 		encounterSettings: 0x5C010,
 		encounterLists: 0x5C410,
 		encounterStructures: 0x5CA10,
+        encounterThreatLevels: 0x73E10,
         encountersByArea: 0x5D300,
 		dropsStealsData: 0x21B90,
 		monsterCombatData: 0x60010,
