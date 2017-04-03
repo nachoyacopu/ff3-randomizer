@@ -127,7 +127,7 @@ var FF3 = (function(window, $, module, undefined) {
                 ];
                 
                 // prevent splitting enemies (skillset 0x10) to no skills (0x00)
-                if (skillset[1] = 0x10) skillset[1] = 0x00;
+                if (skillset[1] === 0x10) skillset[1] = 0x00;
                 
                 if (i > 0xCC) {
                     bossesSkillset.push(skillset);
