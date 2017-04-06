@@ -96,7 +96,7 @@ var FF3 = (function(window, $, module, undefined) {
                 if ($.inArray(jobs_data[next]._id, module.white_magic_jobs) > 0) canUseWhiteMagic++;
                                 
             } while ((canUseWhiteMagic == 0) && (i >= (7 - 1)));
-            
+            console.log(jobs_data[next]);
             jobs_data[next].saveToROM(ROM, jobs_pool[i]);
             jobs_data.splice(next, 1);
         };
@@ -153,8 +153,8 @@ var FF3 = (function(window, $, module, undefined) {
                 ROM[thisMonsterPtr + 15] = (rrr << 5) + ggggg;
             }
             
-            // quick fix: do not further randomize Goblin/LandTurtl
-            if ((i === 0x00) || (i === 0xCC)) continue;
+            // quick fix: do not further randomize Goblin/LandTurtl/first Bahamut
+            if ((i === 0x00) || (i === 0xCC) || (i === 0xC9)) continue;
             
             if(rSkill) {
                 if (i > 0xCC) {
