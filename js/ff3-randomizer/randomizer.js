@@ -146,11 +146,13 @@ var FF3 = (function(window, $, module, undefined) {
             var thisMonsterLvl = ROM[thisMonsterPtr];
             
             if(rDrops) {
-                var droprategroup = parseInt(Math.random()*0x800);
+                var droprategroup = parseInt(Math.random()*0x8000);
                 // byte: rrrggggg - r: drop rate, g: drop group
                 var ggggg = droprategroup & 0x1F;
-                var rrr = 7 - Math.floor(Math.sqrt((droprategroup & 0x7E0) >> 5));
+                var rrr = 7 - Math.floor(Math.cbrt((droprategroup & 0x7FE0) >> 5));
+                if (rrr < 0) rrr = 0;
                 ROM[thisMonsterPtr + 15] = (rrr << 5) + ggggg;
+                console.log(rrr);
             }
             
             // quick fix: do not further randomize Goblin/LandTurtl/first Bahamut
