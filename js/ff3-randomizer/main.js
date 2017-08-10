@@ -1,17 +1,22 @@
-'use strict';
+/*
+ * Final Fantasy III (NES) Randomizer
+ * by @NachoYacopu
+ *
+ * Main file - entry point
+ *
+ */
 
-var FF3 = (function(window, $, module, undefined) {
+var FF3 = (function (window, $, module, undefined) {
+    'use strict';
     
-    var ROM_FILE;
-    var seed;
-    var blob;
+    var ROM_FILE, seed, blob;
     var ENABLED = true;
     
-    var VERSION = 0.33;
+    var VERSION = "0.33";
     
-    module.log = function(msg) {
+    module.log = function (msg) {
         console.log(msg);
-    }
+    };
     
     function featureDetection() {
         var errors = [], warnings = [];
@@ -36,7 +41,7 @@ var FF3 = (function(window, $, module, undefined) {
     function sendFile() {
         if (blob === undefined) return -1;
         
-        var filename = "ff3-v" + VERSION.toString() + "_"+seed+".nes";
+        var filename = "ff3-v" + VERSION.toString() + "_" + seed + ".nes";
         var url = window.URL.createObjectURL(blob);
         var a = document.createElement("a");
         document.body.appendChild(a);
@@ -47,19 +52,6 @@ var FF3 = (function(window, $, module, undefined) {
         window.URL.revokeObjectURL(url);
     };
     
-    function setTimeSeed() {
-        var d = new Date().getTime();
-        var seedStr = "";
-        while (d > 0) {
-            var char = 48 + parseInt(d % 32);
-            if ((char > 57) & (char < 65)) char =+ 22;
-            seedStr += String.fromCharCode(char);
-            d = parseInt(d / 32) + ((d > 3)?(d && 3):0);
-        };
-        
-        console.log("generated seed: " + seedStr);
-        return(seedStr);
-    };
     
     // Initialize on document ready
     $(document).ready(function() {
@@ -91,7 +83,7 @@ var FF3 = (function(window, $, module, undefined) {
             $('#btn-randomize').on('click', function(e) {
             
                 // Get seed (words for now)
-                seed = $('#txt-seed').val() || setTimeSeed();
+                seed = $('#txt-seed').val() || new Date().toString().replace(/[^A-Z0-9]+/ig , '').split('GMT')[0];
                 
                 // Set random seed
                 Math.seedrandom(seed);

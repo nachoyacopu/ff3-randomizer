@@ -1,6 +1,13 @@
-'use strict';
+/*
+ * Final Fantasy III (NES) Randomizer
+ * by @NachoYacopu
+ *
+ * Job Class definition
+ *
+ */
 
 var FF3 = (function(window, $, module, undefined) {
+    'use strict';
     
     module.Job = function() {
         this._id = null;

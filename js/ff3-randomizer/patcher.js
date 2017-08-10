@@ -1,6 +1,13 @@
-'use strict';
+/*
+ * Final Fantasy III (NES) Randomizer
+ * by @NachoYacopu
+ *
+ * Patcher utility
+ *
+ */
 
 var FF3 = (function(window, $, module, undefined) {
+    'use strict';
     
     // All of the patches:
     

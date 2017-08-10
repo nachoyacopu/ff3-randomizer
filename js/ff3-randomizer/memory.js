@@ -1,7 +1,13 @@
-'use strict';
+/*
+ * Final Fantasy III (NES) Randomizer
+ * by @NachoYacopu
+ *
+ * ROM Memory Addresses
+ *
+ */
 
 var FF3 = (function(window, $, module, undefined) {
-    
+    'use strict';
     
     // Define addresses
     module.address = {

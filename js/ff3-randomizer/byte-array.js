@@ -1,9 +1,8 @@
-'use strict';
-
 // Original Code by Ben Nadel
 // from http://www.bennadel.com/blog/2292-extending-javascript-arrays-while-keeping-native-bracket-notation-functionality.htm
 
 window.ByteArray = (function() {
+    'use strict';
     
     function ByteArray() {
         var byteArray;

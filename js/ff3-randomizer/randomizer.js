@@ -1,17 +1,35 @@
-'use strict';
+/*
+ * Final Fantasy III (NES) Randomizer
+ * by @NachoYacopu
+ *
+ * Randomizer manager
+ *
+ */
 
 var FF3 = (function(window, $, module, undefined) {
-
+    'use strict';
+    
     var ROM;
-    var item_pool, jobs_pool;
+    
+    // Some "global" utility functions
     
     // tan random is a weighted random function that gives numbers between [-range to +range]
     // its weighted to be more likely to give numbers closer to 0 (less deviation)
-    function tanRandom(range) {
+    module.tanRandom = function(range) {
         var r = (Math.random() - 0.5) * (3.1415296 / 2);
         return Math.pow(Math.tan(r), 2) * Math.sign(r) * range;
     };
     
+    module.random_array_from = function(arr, size) {
+        var newArray = [];
+        for(var i=0;i<size;i++) {
+            newArray.push(arr[parseInt(Math.random() * arr.length)]);
+        };
+        return newArray;
+    };
+    
+    
+    /*
     function generateItemPool() {
         // array of items
         item_pool = [];
@@ -60,25 +78,6 @@ var FF3 = (function(window, $, module, undefined) {
         
     };
     
-    function balanceJobsStartingStats() {
-        var factor_stats = 30; // Sum of stats to equalize to (corresponding to value of first crystal jobs)
-            
-        for(var i=1;i<21;i++) { // for all jobs except Onion Knights
-            var stats = ROM.slice(module.address.jobBaseData+(i*8)+2, module.address.jobBaseData+(i*8)+7);
-            var sum_stats = stats[0]+stats[1]+stats[2]+stats[3]+stats[4];
-            
-            if (factor_stats !== sum_stats) {
-                var factor = 30 / sum_stats;
-                stats[0] = Math.round(stats[0] * factor);
-                stats[1] = Math.round(stats[1] * factor);
-                stats[2] = Math.round(stats[2] * factor);
-                stats[3] = Math.round(stats[3] * factor);
-                stats[4] = Math.round(stats[4] * factor);
-                ROM.set(stats, module.address.jobBaseData+(i*8)+2);
-            };
-            
-        };
-    };
     
     function shuffleJobs() {
         var jobs_data = [];//, shuffled_jobs = [];
@@ -101,8 +100,8 @@ var FF3 = (function(window, $, module, undefined) {
             jobs_data.splice(next, 1);
         };
     };
-    
-    
+    */
+    /*
     function handleMonsterRandomization() {
         var rSkill = $('#chk-monsters-skills').is(':checked');
         var rElems = $('#chk-monsters-elements').is(':checked');
@@ -152,7 +151,6 @@ var FF3 = (function(window, $, module, undefined) {
                 var rrr = 7 - Math.floor(Math.cbrt((droprategroup & 0x7FE0) >> 5));
                 if (rrr < 0) rrr = 0;
                 ROM[thisMonsterPtr + 15] = (rrr << 5) + ggggg;
-                console.log(rrr);
             }
             
             // quick fix: do not further randomize Goblin/LandTurtl/first Bahamut
@@ -214,7 +212,7 @@ var FF3 = (function(window, $, module, undefined) {
             };
         };
     };
-    
+    /*
     function randomizeEquipment() {
         var elements = $('#chk-eq-elements').is(':checked');
         var bonuses = $('#chk-eq-bonuses').is(':checked');
@@ -276,7 +274,8 @@ var FF3 = (function(window, $, module, undefined) {
     function randomizeDropsSteals() {
         ROM.set(random_array_from(item_pool, 256), module.address.dropsStealsData)
     };
-    
+    */
+    /*
     function randomizeEncounterGroupsByArea() {
         for(var i=0;i<512;i++) {
             if(ROM[module.address.encountersByArea+i] > 0) {
@@ -284,7 +283,8 @@ var FF3 = (function(window, $, module, undefined) {
             };
         };
     };
-    
+    */
+    /*
     function boostExp() {
         //ROM.randomize.boost16(module.address.monsterExpValues, 64, 2.5);
         for(var i=0;i<64;i++) {
@@ -392,14 +392,9 @@ var FF3 = (function(window, $, module, undefined) {
             ROM[module.address.encounterThreatLevels + i] = threat;
         };
     };
+    */
     
-    function random_array_from(arr, size) {
-        var newArray = [];
-        for(var i=0;i<size;i++) {
-            newArray.push(arr[parseInt(Math.random() * arr.length)]);
-        };
-        return newArray;
-    };
+    
     /*
     function giveMeShopPointers() {
         var shopsPtrA = 0x583D6;
@@ -450,7 +445,8 @@ var FF3 = (function(window, $, module, undefined) {
         
         // Balancing
         if ($('#chk-bal-jobs-stats').is(':checked'))
-            balanceJobsStartingStats();
+            module.balancing.balanceJobsStartingStats(ROM);
+            //balanceJobsStartingStats();
         
         if ($('#chk-bal-jobs-commands').is(':checked')) {
             module.applyPatch("bard_improved_scare", ROM);
@@ -467,56 +463,58 @@ var FF3 = (function(window, $, module, undefined) {
         };
         
         // Jobs
-        generateJobsPool();
+        //generateJobsPool();
+        module.jobs.generateJobsPool();
         if ($('#chk-jobs-shuffle').is(':checked'))
-            shuffleJobs();
+            module.jobs.shuffleJobs(ROM);
+            //shuffleJobs();
         
         // Items
-        generateItemPool();
+        module.items.generateItemPool();
         if ($('#chk-items-chests').is(':checked'))
-            randomizeChests();
+            module.items.randomizeChests(ROM);
         if ($('#chk-items-dropsteals').is(':checked'))
-            randomizeDropsSteals();
+            module.items.randomizeDropsSteals(ROM);
         
         // Shops
         //giveMeShopPointers(ROM);
         if ($('#chk-shops-weapon').is(':checked'))
-            randomizeWeaponShops();
+            module.items.randomizeWeaponShops(ROM);
         if ($('#chk-shops-armor').is(':checked'))
-            randomizeArmorShops();
+            module.items.randomizeArmorShops(ROM);
         if ($('#chk-shops-magic').is(':checked'))
-            randomizeMagicShops();
+            module.items.randomizeMagicShops(ROM);
         
         // Equipment
-        randomizeEquipment();
+        module.items.randomizeEquipment(ROM);
         
         
         // Monsters
-        handleMonsterRandomization();
+        module.monsters.handleMonsterRandomization(ROM);
         
         // Boosts
         if ($('#chk-boost-exp').is(':checked'))
-            boostExp();
+            module.misc.boostExp(ROM);
         if ($('#chk-boost-gold').is(':checked'))
-            boostGold();
+            module.misc.boostGold(ROM);
         if ($('#chk-boost-cap').is(':checked'))
-            boostCapacity();
+            module.misc.boostCapacity(ROM);
         if ($('#chk-boost-skill').is(':checked'))
             ROM[module.address.skillPointsPerLevel] = 50;
         
         // Hardcore
         if ($('#chk-hc-encounters').is(':checked'))
-            randomizeEncounterGroupsByArea();
+            module.monsters.randomizeEncounterGroupsByArea(ROM);
         
         // Visual
         if ($('#chk-ve-menu').is(':checked'))
-            randomizeMenuColor();
+            module.visual.randomizeMenuColor(ROM);
         if ($('#chk-ve-monster-palettes').is(':checked'))
-            randomizeMonsterPalettes();
+            module.visual.randomizeMonsterPalettes(ROM);
         if ($('#chk-ve-weapon-animations').is(':checked'))
-            randomizeWeaponAnimations();
+            module.visual.randomizeWeaponAnimations(ROM);
         if ($('#chk-ve-weapon-palettes').is(':checked'))
-            randomizeWeaponPalettes();
+            module.visual.randomizeWeaponPalettes(ROM);
         
         
         
@@ -525,13 +523,13 @@ var FF3 = (function(window, $, module, undefined) {
             ROM[0x7A5B5] = 0x00;
         
         if ($('#chk-misc-steptable').is(':checked'))
-            randomizeStepTable();
+            module.misc.randomizeStepTable(ROM);
         
         if ($('#chk-half-encounter-rate').is(':checked'))
-            halfEncounterRate();
+            module.misc.halfEncounterRate(ROM);
         
         if ($('#chk-all-encounters-runnable').is(':checked'))
-            allEncountersRunnable();
+            module.misc.allEncountersRunnable(ROM);
         
         if ($('#chk-misc-movespeed').is(':checked')) {
             ROM[module.address.moveSpeed] = 0x02;
@@ -566,7 +564,6 @@ var FF3 = (function(window, $, module, undefined) {
             ROM[0x73C05] = 0x59;
             ROM[0x73C06] = 0x01;
         };
-        
         
         return ROM;
         
