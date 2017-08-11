@@ -117,7 +117,9 @@ var FF3 = (function(window, $, module, undefined) {
             module.items.randomizeArmorShops(ROM);
         if ($('#chk-shops-magic').is(':checked'))
             module.items.randomizeMagicShops(ROM);
-        
+        if ($('#chk-shops-item').is(':checked'))
+            module.items.randomizeItemShops(ROM);
+
         // Equipment
         module.items.randomizeEquipment(ROM);
         

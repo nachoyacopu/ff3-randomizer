@@ -12,7 +12,7 @@ var FF3 = (function (window, $, module, undefined) {
     var ROM_FILE, seed, blob;
     var ENABLED = true;
     
-    var VERSION = "0.33";
+    var VERSION = "0.4";
     
     module.log = function (msg) {
         console.log(msg);
