@@ -44,6 +44,9 @@ var FF3 = (function(window, $, module, undefined) {
         };
         
         var canUseWhiteMagic = 0;
+        var numberOfJobsFromFirstCrystal = 5;
+        if ($('#chk-misc-morejobs').is(':checked'))
+            numberOfJobsFromFirstCrystal = 7;
         
         for(var i=0;i<jobs_pool.length;i++) {
             do {
@@ -53,9 +56,9 @@ var FF3 = (function(window, $, module, undefined) {
                 if ($.inArray(jobs_data[next]._id, module.white_magic_jobs) > 0) canUseWhiteMagic++;
                                 
                 // If we're at the limit and no selected job can use white magic, repeat the loop
-            } while ((canUseWhiteMagic == 0) && (i >= (7 - 1)));
+            } while ((canUseWhiteMagic == 0) && (i >= (numberOfJobsFromFirstCrystal - 1)));
             
-            //console.log(jobs_data[next]);
+            //console.log(jobs_data[next]._id.toString(16), canUseWhiteMagic);
             jobs_data[next].saveToROM(ROM, jobs_pool[i]);
             jobs_data.splice(next, 1);
         };
