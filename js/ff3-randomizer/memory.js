@@ -49,6 +49,7 @@ var FF3 = (function(window, $, module, undefined) {
 		moveSpeedBattle: 0x67D5B,
         moveSpeedBattle2: 0x67D66,
         jobCover: 0x6A152,
+        jobUnlockDoors: 0x7E97F,
 		runaway: 0x6A936,
         skillPointsPerLevel: 0x6BE20,
         jobData1: 0x73B2A,

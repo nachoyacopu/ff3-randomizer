@@ -82,8 +82,8 @@ var FF3 = (function(window, $, module, undefined) {
                     ROM[thisMonsterPtr + 14] = enemiesSkillset[sk][1];
                 }
                 
-                // lvl% chance for enemies to have a status on hit effect
-                if(Math.random() < (thisMonsterLvl / 100)) {
+                // lvl%/2 chance for enemies to have a status on hit effect
+                if(Math.random() < (thisMonsterLvl / 200)) {
                     ROM[thisMonsterPtr+10] = module.monster_on_hit[parseInt(Math.random()*module.monster_on_hit.length)];
                 } else {
                     ROM[thisMonsterPtr+10] = 0;

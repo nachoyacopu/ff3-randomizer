@@ -54,38 +54,73 @@ var FF3 = (function(window, $, module, undefined) {
     
     function randomizeWeaponShops(ROM) {
         var weapons = [];
+        // Create array with all weapon IDs
         for (var i=1;i<0x56;i++) weapons.push(i);
+        // Filter "banned" weapons
         weapons = $.map(weapons, function(a){return $.inArray(a, item_pool) < 0 ? null : a; });
         for(var s=0;s<module.address.shops.weapon.length;s++) {
             var ptr = module.address.shops.weapon[s];
-            while (ROM[++ptr] !== 0) {
+            var stock = 0;
+            while ((ROM[++ptr] !== 0) && (stock <= 7)) {
                 ROM[ptr] = weapons[parseInt(Math.random() * weapons.length)];
+                stock++;
             };
         };
     };
     
     function randomizeArmorShops(ROM) {
         var armor = [];
+        // Create array with all armors IDs
         for (var i=0x58;i<0x97;i++) armor.push(i);
+        // Filter "banned" armors
         armor = $.map(armor, function(a){return $.inArray(a, item_pool) < 0 ? null : a; });
         for(var s=0;s<module.address.shops.armor.length;s++) {
             var ptr = module.address.shops.armor[s];
-            while (ROM[++ptr] !== 0) {
+            var stock = 0;
+            while ((ROM[++ptr] !== 0) && (stock <= 7)) {
                 ROM[ptr] = armor[parseInt(Math.random() * armor.length)];
+                stock++;
             };
         };
     };
     
     function randomizeMagicShops(ROM) {
         var magic = [];
+        // Create array wth all magic spell IDs
         for (var i=0xc8;i<0xff;i++) magic.push(i);
+        // Filter "banned" spells
         magic = $.map(magic, function(a){return $.inArray(a, item_pool) < 0 ? null : a; });
         for(var s=0;s<module.address.shops.magic.length;s++) {
             var ptr = module.address.shops.magic[s];
-            while (ROM[++ptr] !== 0) {
+            var stock = 0;
+            while ((ROM[++ptr] !== 0) && (stock <= 7)) {
                 ROM[ptr] = magic[parseInt(Math.random() * magic.length)];
+                stock++;
             };
         };
+    };
+    
+    function randomizeItemShops(ROM) {
+        var items = [];
+        // Create array with all item IDs
+        for (var i=0xa6;i<0xc7;i++) items.push(i);
+        // Filter "banned" items
+        for(var s=0;s<module.address.shops.item.length;s++) {
+            var ptr = module.address.shops.item[s];
+            var stock = 0;
+            while ((ROM[++ptr] !== 0) && (stock <= 7)) {
+                // Antidote hack - ensures Tozas "bread" shop always has Antidotes
+                if (ptr === 0x59cd2) {
+                    ROM[ptr] = 0xAF;
+                // Preserve magic keys on Gisahl shop
+                } else if (ptr === 0x59d04) {
+                    ROM[ptr] = 0x98;
+                } else {
+                    ROM[ptr] = items[parseInt(Math.random() * items.length)];
+                };
+                stock++;
+            }
+        }
     };
     
     function randomizeChests(ROM) {
@@ -102,6 +137,7 @@ var FF3 = (function(window, $, module, undefined) {
         randomizeWeaponShops: randomizeWeaponShops,
         randomizeArmorShops: randomizeArmorShops,
         randomizeMagicShops: randomizeMagicShops,
+        randomizeItemShops: randomizeItemShops,
         randomizeChests: randomizeChests,
         randomizeDropsSteals: randomizeDropsSteals
     };
