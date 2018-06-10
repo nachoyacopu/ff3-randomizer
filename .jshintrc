@@ -5,6 +5,7 @@
     "undef": true,
     "unused": true,
     "globals": {
-        "FF3": true
+        "FF3": true,
+        "jQuery": true
     }
 }
