@@ -6,59 +6,59 @@
  *
  */
 
-var FF3 = (function(window, $, module, undefined) {
+var FF3 = (function (window, $, module, undefined) {
     'use strict';
-    
+
     // Define addresses
     module.address = {
-		equipabilitySets: 0x910,
+        equipabilitySets: 0x910,
         palettesOverworld: 0x16A0,
         spritesOverworld: 0x1C010,
         paletteIndexBattle: 0x5DE5A,
         spritesBattle: 0x50010,
         paletteIndexMenu: 0x782E8,
-		jobCommands: 0x69B31,
-		jobBaseData: 0x72010,
-		jobGrowth: 0x721E6,
-		jobNamePtr: 0x303D4,
-		MPGrowthTable: 0x73D98,
-		expTable: 0x720C0,
-		statLevelUp: 0x721E6,
-		initialHP: 0x73BE8,
-		initialEquipment: 0x73C00,
-		encounterSettings: 0x5C010,
-		encounterLists: 0x5C410,
-		encounterStructures: 0x5CA10,
+        jobCommands: 0x69B31,
+        jobBaseData: 0x72010,
+        jobGrowth: 0x721E6,
+        jobNamePtr: 0x303D4,
+        MPGrowthTable: 0x73D98,
+        expTable: 0x720C0,
+        statLevelUp: 0x721E6,
+        initialHP: 0x73BE8,
+        initialEquipment: 0x73C00,
+        encounterSettings: 0x5C010,
+        encounterLists: 0x5C410,
+        encounterStructures: 0x5CA10,
         encounterThreatLevels: 0x73E10,
         encountersByArea: 0x5D300,
-		dropsStealsData: 0x21B90,
-		monsterCombatData: 0x60010,
+        dropsStealsData: 0x21B90,
+        monsterCombatData: 0x60010,
         monsterStats: 0x61010,
-		monsterExpValues: 0x21D90,
-		monsterGoldValues: 0x61C68,
+        monsterExpValues: 0x21D90,
+        monsterGoldValues: 0x61C68,
         weaponGFX: 0x5D0A8,
-		formCPValues: 0x732BE,
-		specialAttackTable: 0x61210,
+        formCPValues: 0x732BE,
+        specialAttackTable: 0x61210,
         equipmentData: 0x61410,
-		prices: 0x21E10,
-		shopItems: 0x5A080,
-		chestsData: 0x3C10,
-		moveSpeed: 0x7CDE8,
+        prices: 0x21E10,
+        shopItems: 0x5A080,
+        chestsData: 0x3C10,
+        moveSpeed: 0x7CDE8,
         moveSpeed2: 0x7B747,
         moveSpeed3: 0x7B775,
-		moveSpeedBattle: 0x67D5B,
+        moveSpeedBattle: 0x67D5B,
         moveSpeedBattle2: 0x67D66,
         jobCover: 0x6A152,
         jobUnlockDoors: 0x7E97F,
-		runaway: 0x6A936,
+        runaway: 0x6A936,
         skillPointsPerLevel: 0x6BE20,
         jobData1: 0x73B2A,
         stepTable: 0x7FE10,
-		numOfCrystalJobs: [
-			0x7F3A5,	// LandTurtl Crystal
-			0x7F3AA,	// Salamandr Crystal
-			0x7F3AF,	// Kraken Crystal
-			0x7F3B4,	// Titan Crystal
+        numOfCrystalJobs: [
+			0x7F3A5, // LandTurtl Crystal
+			0x7F3AA, // Salamandr Crystal
+			0x7F3AF, // Kraken Crystal
+			0x7F3B4, // Titan Crystal
 		],
         shops: {
             weapon: [0x5a096, 0x59cd4, 0x5a09d, 0x59cdb, 0x5a0a4, 0x59ce0, 0x5a0a8, 0x5a0ac, 0x59cf1, 0x5a0b5, 0x59cfa, 0x5a0be],
@@ -70,7 +70,7 @@ var FF3 = (function(window, $, module, undefined) {
         menuTextboxPalette: 0x7e1cc,
         battleTextboxPalette: 0x5cf00
     };
-    
+
     module.bad_items = [
 		0x00, // Nothing
 		0x57, // Separator between weapons and armor
@@ -78,62 +78,62 @@ var FF3 = (function(window, $, module, undefined) {
 		0x9E, 0x9F, 0xA0, 0xA1, // Fangs
 		0xA5 // used for gold chests
 	];
-	
-	module.excluded_items = {
+
+    module.excluded_items = {
         key: [
             0x9B, // Eye
             0x9D, // Eureka Key
             0xA2, // Lute
             0xA3, // Sylx Key
             0xF6, // Toad
-            0xF7  // Mini
+            0xF7 // Mini
         ],
         ultimate: [
             0x36, // Excalibur
             0x37, // Masamune
             0x38, // Ragnarok
-            0x40  // Full Moon
+            0x40 // Full Moon
         ],
         onion: [
             0x39, // Onion Sword
             0x59, // Onion Shield
             0x63, // Onion Helmet
             0x74, // Onion Armor
-            0x8C  // Onion Gloves
+            0x8C // Onion Gloves
         ],
-        magic: [
+        magic:  [
             0xC8, // Flare
             0xC9, // Death
             0xCA, // Meteo
             0xCB, // WWind
             0xCC, // Life2
             0xCD, // Holy
-            0xCE  // Bahamut
+            0xCE // Bahamut
 	   ]
     };
-    
+
     module.white_magic_jobs = [
-        0x03,   // White Wizard
-        0x05,   // Red Wizard
-        0x06,   // Hunter
-        0x0E,   // M.Knight
-        0x12,   // Devout
-        0x14    // Sage
+        0x03, // White Wizard
+        0x05, // Red Wizard
+        0x06, // Hunter
+        0x0E, // M.Knight
+        0x12, // Devout
+        0x14 // Sage
     ];
-    
+
     module.eureka_shops = [0x5a116, 0x5a11d, 0x5a125];
-    
+
     module.weapon_sprites = [
         0x53, 0x5B, 0x63, 0x66, 0x6B, 0x70, 0x78, 0x80, 0x88, 0x90, 0x98, 0xA0, 0xA8, 0xB0,
         0xB8, 0xC0, 0xC8, 0xD0, 0xD8, 0xE0, 0xE8, 0xEC, 0xEE, 0xF0, 0xF2, 0xF4, 0xF6, 0xF8
     ];
-    
+
     module.weapon_palettes = [
         0xB1, 0xB9, 0xBA, 0xBB, 0xBC, 0xBD, 0xBE, 0xC1, 0xC2, 0xC3, 0xC4, 0xC7, 0xC9, 0xCA,
         0xCE, 0xCF, 0xD3, 0xD4, 0xD8, 0xDB, 0xE3, 0xE5, 0xE7, 0xE8, 0xE9, 0xEA, 0xEB, 0xEC,
         0xF0, 0xF1, 0xF3, 0xF5, 0xF7
     ];
-    
+
     module.encounter_lists = [
         [
             0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0F,
@@ -150,11 +150,11 @@ var FF3 = (function(window, $, module, undefined) {
             0xb1, 0xb2, 0xb3, 0xb4, 0xb5, 0xb6
         ]
     ];
-    
+
     module.monster_on_hit = [
         0x02, 0x03, 0x04, 0x10, 0x21, 0x31, 0x40, 0x41, 0x80, 0x81, 0x91
     ];
-    
-    
+
+
     return module;
 })(window, jQuery, FF3 || {});
