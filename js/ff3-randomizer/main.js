@@ -12,7 +12,7 @@ var FF3 = (function (window, $, module, undefined) {
     var ROM_FILE, seed, blob;
     var ENABLED = true;
 
-    var VERSION = "0.41";
+    var VERSION = "0.5";
 
     module.log = function (msg) {
         window.console.log(msg);
@@ -55,6 +55,28 @@ var FF3 = (function (window, $, module, undefined) {
         window.URL.revokeObjectURL(url);
     }
 
+    function generateRandomSeed() {
+
+        // random stuff
+        var personalities = [
+            "agile", "amazon", "quick", "silly", "twisted", "weepy", "fearless", "romantic", "eager", "logical", "ordinary", "carefree", "sharp", "kindly", "unique", "happy", "macho", "ironman", "careless", "lazy", "solitary", "lewd", "naive", "lucky", "jock", "meddler", "stubborn", "selfish", "valiant", "diligent", "ladylike", "foolish", "vain", "timid", "alert", "lonesome", "defiant", "helpless", "honest", "bully", "tomboy", "tough", "sexy", "cowardly", "smart"
+        ];
+        var colors = [
+            "white", "black", "red", "orange", "yellow", "green", "blue", "indigo", "violet", "gray", "dark", "light", "time", "mystic"
+        ];
+        var nouns = [
+            "onionkid", "fighter", "monk", "wizard", "thief", "knight", "ranger", "geomancer", "scholar", "viking", "dragoon", "conjurer", "bard", "karateka", "devout", "summoner", "ninja", "sage", "berserker", "mime", "beastmaster", "samurai", "dancer", "chemist"
+        ];
+
+        // build a string with these random things
+        return (
+            personalities[parseInt(Math.random() * personalities.length)] +
+            colors[parseInt(Math.random() * colors.length)] +
+            nouns[parseInt(Math.random() * nouns.length)]
+        );
+
+    }
+
 
     // Initialize on document ready
     $(document).ready(function () {
@@ -86,7 +108,8 @@ var FF3 = (function (window, $, module, undefined) {
             $('#btn-randomize').on('click', function () {
 
                 // Get seed (words for now)
-                seed = $('#txt-seed').val() || new Date().toString().replace(/[^A-Z0-9]+/ig, '').split('GMT')[0];
+                //seed = $('#txt-seed').val() || new Date().toString().replace(/[^A-Z0-9]+/ig, '').split('GMT')[0];
+                seed = $('#txt-seed').val() || generateRandomSeed();
 
                 // Set random seed
                 Math.seedrandom(seed);
