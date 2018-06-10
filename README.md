@@ -40,6 +40,12 @@ There's plenty of different options to change different aspects of the game that
 ### Hardcore Options
 - **Randomize encounter group areas** - Shuffles around all encounter zones.
 
+### Patches
+- **Boulderless** - This removes the boulder that blocks you from exploring the entire Floating Continent at the start of the game.
+Keep in mind this is still an extremely experimental idea yet since I still don't know for sure exactly how certain game flags will behave when you don't complete the Jinn quest and destroy the boulder yourself. For now, use at your own risk!
+As of now, I've noticed the following things you need to be aware of:
+- You cannot access the Road to the Summit - you will just keep walking and end at the Bahamut's Nest, at which point you will lose access to your airship, since you cannot leave that area!
+
 ### Balancing
 - **Equalize starting stats across all jobs** - This options will assign the same amount of stat points (30) to all jobs at level 1, so no jobs are too overpowered at the start of the game. Note that this only changes starting stats, not stat growth.
 - **Improve subpar job commands** - This changes the way some commands work to make them (and their jobs) more appealing:
