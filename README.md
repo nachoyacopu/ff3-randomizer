@@ -44,7 +44,9 @@ There's plenty of different options to change different aspects of the game that
 - **Boulderless** - This removes the boulder that blocks you from exploring the entire Floating Continent at the start of the game.
 Keep in mind this is still an extremely experimental idea yet since I still don't know for sure exactly how certain game flags will behave when you don't complete the Jinn quest and destroy the boulder yourself. For now, use at your own risk!
 As of now, I've noticed the following things you need to be aware of:
-- You cannot access the Road to the Summit - you will just keep walking and end at the Bahamut's Nest, at which point you will lose access to your airship, since you cannot leave that area!
+- You cannot access the Road to the Summit - you will just keep walking and end at the Bahamut's Nest, at which point you will lose access to your airship, since you cannot leave that area! Your game won't lock since you'll get the Enterprise (the Pirates Ship) shortly after if you just proceed through the game normally.
+- Cid's Airship won't be shown in the Flooded Continent when you land - so you better remember where you parked it. (note to self: find a way to fix this)
+- You MUST get the Canoe from the Sasoon King before beating Kraken and unflooding the Flooded Continent! At that point you temporarily lose your airship and need the Canoe to make it to Goldor's Mansion. (note to self: an idea here would be to modify the map slightly so that you actually need the Canoe to enter the Water Cave)
 
 ### Balancing
 - **Equalize starting stats across all jobs** - This options will assign the same amount of stat points (30) to all jobs at level 1, so no jobs are too overpowered at the start of the game. Note that this only changes starting stats, not stat growth.

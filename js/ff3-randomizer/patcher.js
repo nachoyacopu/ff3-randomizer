@@ -20,10 +20,12 @@ var FF3 = (function (window, $, module, undefined) {
          *  (still needs testing to ensure stuff won't break later in the game)
          */
         "boulderless": [
+            // skip collision check for the boulder
             {
                 address: 0x7C617,
                 data: [0x18, 0x60, 0xEA, 0xEA, 0xEA, 0xEA, 0xEA, 0xEA, 0xEA, 0xEA, 0xEA, 0xEA, 0xEA, 0xEA, 0xEA, 0xEA, 0xEA, 0xEA, 0xEA]
             },
+            // skip displaying the boulder
             {
                 address: 0x7D547,
                 data: [0x60, 0xEA]
