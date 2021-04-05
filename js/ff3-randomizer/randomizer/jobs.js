@@ -51,9 +51,9 @@ var FF3 = (function (window, $, module, undefined) {
     var shufflingOnionKnightSlot = $("#chk-jobs-ok").is(":checked");
 
     for (i = 0; i < jobs_pool.length; i++) {
-      var next,
-        mustPickAnotherJob = false;
+      var next, mustPickAnotherJob;
       do {
+        mustPickAnotherJob = false;
         next = parseInt(Math.random() * jobs_data.length);
 
         // check for white magic requirement
