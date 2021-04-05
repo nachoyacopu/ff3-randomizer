@@ -1,11 +1,11 @@
-'use strict';
+"use strict";
 
 // Extend array
 // Bad practice but it will do for now
 Array.prototype.removeArray = function (toRemove) {
-    return $.grep(this, function (value) {
-        return $.inArray(value, toRemove) === -1;
-    });
+  return $.grep(this, function (value) {
+    return $.inArray(value, toRemove) === -1;
+  });
 };
 
 // cloneSlice now part of ByteArray class
