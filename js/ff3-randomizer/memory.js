@@ -48,6 +48,8 @@ var FF3 = (function (window, $, module, undefined) {
     moveSpeed3: 0x7b775,
     moveSpeedBattle: 0x67d5b,
     moveSpeedBattle2: 0x67d66,
+    jobSummonMagic1: 0x6a005,
+    jobSummonMagic2: 0x6a009,
     jobCover: 0x6a152,
     jobUnlockDoors: 0x7e97f,
     runaway: 0x6a936,

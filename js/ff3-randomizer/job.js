@@ -78,6 +78,10 @@ var FF3 = (function (window, $, module, undefined) {
     // If this job model is Thief then rewrite new Thief id to door unlocking logic
     if (this._id === 8) ROM[module.address.jobUnlockDoors] = id;
 
+    // If this job model is Summoner or Sage then rewrite new ids to summon magic logic
+    if (this._id === 19) ROM[module.address.jobSummonMagic1] = id;
+    if (this._id === 20) ROM[module.address.jobSummonMagic2] = id;
+
     this.base[1] = 0; // Remove level requirement to change into this job
     ROM.set(this.commands, module.address.jobCommands + id * 4);
     ROM.set(this.base, module.address.jobBaseData + id * 8);

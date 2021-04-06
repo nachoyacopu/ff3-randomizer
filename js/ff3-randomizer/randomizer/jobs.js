@@ -69,7 +69,6 @@ var FF3 = (function (window, $, module, undefined) {
           mustPickAnotherJob = true;
       } while (mustPickAnotherJob);
 
-      //console.log(jobs_data[next]._id.toString(16), canUseWhiteMagic);
       jobs_data[next].saveToROM(ROM, jobs_pool[i]);
       jobs_data.splice(next, 1);
     }
