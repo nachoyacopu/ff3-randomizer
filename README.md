@@ -1,6 +1,6 @@
 # Final Fantasy III Randomizer
 Web app to randomize Final Fantasy III (NES) Roms.
-Current version: 0.33
+Current version: 0.6
 You can find it [here!](http://yacopu.neocities.org/pages/ff3-randomizer/)
 
 ## How to use
