@@ -1,5 +1,6 @@
 # ROM
 *.nes
+*.nes.deb
 
 # Bower
 bower_components/
