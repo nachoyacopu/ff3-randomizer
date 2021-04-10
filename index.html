@@ -208,8 +208,8 @@
                             <legend>Patches</legend>
                             <div class="form-group">
                                 <div class="checkbox">
-                                    <label data-toggle="tooltip" data-placement="bottom" title="This removes the boulder just south of Sasoon Castle that normally blocks your progress until you beat the Jinn and blow up your first airship on it - it opens up the world right away but there are some caveats you need to be aware of - check the README for more info">
-                                        <input type="checkbox" id="chk-patch-boulderless" /> Boulderless <b>(WARNING: EXPERIMENTAL, USE AT YOUR OWN RISK)</b> <a target="_blank" href="https://github.com/nachoyacopu/ff3-randomizer">(more info)</a> </label>
+                                    <label data-toggle="tooltip" data-placement="bottom" title="This grants you the Invincible (ultimate airship) right away, however, there are some caveats you need to be aware of - check the README for more info">
+                                        <input type="checkbox" id="chk-patch-instant-invincible" /> Instant Invincible <b>(WARNING: EXPERIMENTAL, USE AT YOUR OWN RISK)</b> <a target="_blank" href="https://github.com/nachoyacopu/ff3-randomizer">(more info)</a> </label>
                                 </div>
                             </div>
                             <legend>Balancing</legend>
@@ -330,6 +330,11 @@
                         <h4 class="modal-title">Changelog</h4>
                     </div>
                     <div class="modal-body">
+                        <span>v0.6</span> <small>April 5, 2021</small>
+                        <ul>
+                            <li>Fixed issue where game wasn't properly checking if you were a Summoner or a Sage when casting summon spells</li>
+                            <li>Fixed issue where bards could be selected as starting job instead of Onion Knights, preventing progress</li>
+                        </ul>
                         <span>v0.5</span> <small>June 10, 2018</small>
                         <ul>
                             <li>Added a "boulderless" patch - this will remove the boulder blocking you at the start of the game so you can freely explore once you get Cid's Airship</li>
