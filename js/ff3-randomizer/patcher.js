@@ -12,44 +12,6 @@ var FF3 = (function (window, $, module, undefined) {
   // All of the patches:
 
   var patches_data = {
-    /* Boulderless:
-     *
-     *  ...removes the boulder blocking the path outside of the starting continent
-     *  (still needs testing to ensure stuff won't break later in the game)
-     */
-    boulderless: [
-      // skip collision check for the boulder
-      {
-        address: 0x7c617,
-        data: [
-          0x18,
-          0x60,
-          0xea,
-          0xea,
-          0xea,
-          0xea,
-          0xea,
-          0xea,
-          0xea,
-          0xea,
-          0xea,
-          0xea,
-          0xea,
-          0xea,
-          0xea,
-          0xea,
-          0xea,
-          0xea,
-          0xea,
-        ],
-      },
-      // skip displaying the boulder
-      {
-        address: 0x7d547,
-        data: [0x60, 0xea],
-      },
-    ],
-
     /* Improved Scare:
      *
      *  ...from: Scare reduces enemies level by 3
@@ -93,6 +55,47 @@ var FF3 = (function (window, $, module, undefined) {
     not_so_defenseless: {
       address: 0x62083,
       data: [0x46, 0x26, 0xe6, 0x26],
+    },
+
+    /* Instant Invincible:
+     *
+     *  Sets up a brand new invincible at the entrance of the starting cave
+     * TODO: some logic breaks - properly document what can cause softlocks so it can be fixed
+     */
+    instant_invincible: {
+      address: 0x74e98,
+      data: [
+        0xa9,
+        0x01,
+        0x8d,
+        0x04,
+        0x60,
+        0xa9,
+        0x5f,
+        0x8d,
+        0x05,
+        0x60,
+        0xa9,
+        0x58,
+        0x8d,
+        0x09,
+        0x60,
+        0xa9,
+        0x23,
+        0x8d,
+        0x06,
+        0x60,
+        0xa9,
+        0x1c,
+        0x8d,
+        0x0a,
+        0x60,
+        0xa9,
+        0x10,
+        0x8d,
+        0x28,
+        0x60,
+      ],
     },
   };
 
