@@ -41,12 +41,12 @@ There's plenty of different options to change different aspects of the game that
 - **Randomize encounter group areas** - Shuffles around all encounter zones.
 
 ### Patches
-- **Boulderless** - This removes the boulder that blocks you from exploring the entire Floating Continent at the start of the game.
-Keep in mind this is still an extremely experimental idea yet since I still don't know for sure exactly how certain game flags will behave when you don't complete the Jinn quest and destroy the boulder yourself. For now, use at your own risk!
+- **Instant Invincible** - This grants you the invincible right at the start of every new run - it will be parked just outside of the first cave.
+Keep in mind this is still an extremely experimental idea yet. For now, use at your own risk!
 As of now, I've noticed the following things you need to be aware of:
-- You cannot access the Road to the Summit - you will just keep walking and end at the Bahamut's Nest, at which point you will lose access to your airship, since you cannot leave that area! Your game won't lock since you'll get the Enterprise (the Pirates Ship) shortly after if you just proceed through the game normally.
-- Cid's Airship won't be shown in the Flooded Continent when you land - so you better remember where you parked it. (note to self: find a way to fix this)
-- You MUST get the Canoe from the Sasoon King before beating Kraken and unflooding the Flooded Continent! At that point you temporarily lose your airship and need the Canoe to make it to Goldor's Mansion. (note to self: an idea here would be to modify the map slightly so that you actually need the Canoe to enter the Water Cave)
+- Entering the Road to the Summit and fleeing from Bahamut without destroying the rock blocking the path to Canaan will softlock your game, since the Enterprise (the pirates airship) will only appear once you blow up Cid's Airship (known issue - thinking of a proper way to fix this)
+- If you don't get the Canoe and proceed through the events of the Water Cave, your game will softlock since you need the Canoe to progress at this point (and likely, you won't have the right airship or it won't be placed properly to free it after getting Goldor's key anyway)
+- Mainly, events out of order involving other ships are unpredictable (for instance, what happens if you try to get Cid's Airship after getting the Nautilus?) and something that needs to be tested and documented
 
 ### Balancing
 - **Equalize starting stats across all jobs** - This options will assign the same amount of stat points (30) to all jobs at level 1, so no jobs are too overpowered at the start of the game. Note that this only changes starting stats, not stat growth.
