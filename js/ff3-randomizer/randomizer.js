@@ -87,7 +87,7 @@ var FF3 = (function (window, $, module, undefined) {
       module.applyPatch("not_so_defenseless", ROM);
 
     if ($("#chk-patch-instant-invincible").is(":checked"))
-      module.applyPatch("instant-invincible", ROM);
+      module.applyPatch("instant_invincible", ROM);
 
     if ($("#chk-bal-items").is(":checked")) {
       // Ribbon price: 60000
